@@ -13,6 +13,7 @@
 		D54621EA29315FA5006F413A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54621E829315FA5006F413A /* LaunchScreen.storyboard */; };
 		D54621F529315FA6006F413A /* JobsityChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54621F429315FA6006F413A /* JobsityChallengeTests.swift */; };
 		D54622102931639E006F413A /* HelloWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546220F2931639E006F413A /* HelloWorldView.swift */; };
+		D5462213293173A9006F413A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462212293173A9006F413A /* AppCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		D54621F029315FA5006F413A /* JobsityChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsityChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54621F429315FA6006F413A /* JobsityChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsityChallengeTests.swift; sourceTree = "<group>"; };
 		D546220F2931639E006F413A /* HelloWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorldView.swift; sourceTree = "<group>"; };
+		D5462212293173A9006F413A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				D54621E829315FA5006F413A /* LaunchScreen.storyboard */,
 				D54621EB29315FA5006F413A /* Info.plist */,
 				D546220F2931639E006F413A /* HelloWorldView.swift */,
+				D5462212293173A9006F413A /* AppCoordinator.swift */,
 			);
 			path = JobsityChallenge;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5462213293173A9006F413A /* AppCoordinator.swift in Sources */,
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
 				D54622102931639E006F413A /* HelloWorldView.swift in Sources */,
 				D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */,
