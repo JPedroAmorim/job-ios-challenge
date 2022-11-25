@@ -17,6 +17,7 @@
 		D54622152931790C006F413A /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54622142931790C006F413A /* ShowModel.swift */; };
 		D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D546221629317C44006F413A /* ShowsResponseFixture.json */; };
 		D546221C29318175006F413A /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221B29318175006F413A /* Environment.swift */; };
+		D546221E29318451006F413A /* ShowListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221D29318451006F413A /* ShowListingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		D546221629317C44006F413A /* ShowsResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowsResponseFixture.json; sourceTree = "<group>"; };
 		D546221A2931802B006F413A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D546221B29318175006F413A /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		D546221D29318451006F413A /* ShowListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				D5462212293173A9006F413A /* AppCoordinator.swift */,
 				D54622142931790C006F413A /* ShowModel.swift */,
 				D546221B29318175006F413A /* Environment.swift */,
+				D546221D29318451006F413A /* ShowListingService.swift */,
 			);
 			path = JobsityChallenge;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				D5462213293173A9006F413A /* AppCoordinator.swift in Sources */,
 				D546221C29318175006F413A /* Environment.swift in Sources */,
+				D546221E29318451006F413A /* ShowListingService.swift in Sources */,
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
 				D54622102931639E006F413A /* HelloWorldView.swift in Sources */,
 				D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */,
