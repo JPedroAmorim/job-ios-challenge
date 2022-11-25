@@ -16,6 +16,7 @@
 		D5462213293173A9006F413A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462212293173A9006F413A /* AppCoordinator.swift */; };
 		D54622152931790C006F413A /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54622142931790C006F413A /* ShowModel.swift */; };
 		D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D546221629317C44006F413A /* ShowsResponseFixture.json */; };
+		D546221C29318175006F413A /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221B29318175006F413A /* Environment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,8 @@
 		D5462212293173A9006F413A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D54622142931790C006F413A /* ShowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowModel.swift; sourceTree = "<group>"; };
 		D546221629317C44006F413A /* ShowsResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowsResponseFixture.json; sourceTree = "<group>"; };
+		D546221A2931802B006F413A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		D546221B29318175006F413A /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,7 @@
 		D54621DC29315FA4006F413A /* JobsityChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				D546221929317FF4006F413A /* Configuration */,
 				D54621DD29315FA4006F413A /* AppDelegate.swift */,
 				D54621DF29315FA4006F413A /* SceneDelegate.swift */,
 				D54621E629315FA5006F413A /* Assets.xcassets */,
@@ -90,6 +94,7 @@
 				D546220F2931639E006F413A /* HelloWorldView.swift */,
 				D5462212293173A9006F413A /* AppCoordinator.swift */,
 				D54622142931790C006F413A /* ShowModel.swift */,
+				D546221B29318175006F413A /* Environment.swift */,
 			);
 			path = JobsityChallenge;
 			sourceTree = "<group>";
@@ -109,6 +114,14 @@
 				D546221629317C44006F413A /* ShowsResponseFixture.json */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		D546221929317FF4006F413A /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D546221A2931802B006F413A /* Config.xcconfig */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5462213293173A9006F413A /* AppCoordinator.swift in Sources */,
+				D546221C29318175006F413A /* Environment.swift in Sources */,
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
 				D54622102931639E006F413A /* HelloWorldView.swift in Sources */,
 				D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */,
@@ -389,6 +403,7 @@
 		};
 		D546220529315FA6006F413A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D546221A2931802B006F413A /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -420,6 +435,7 @@
 		};
 		D546220629315FA6006F413A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D546221A2931802B006F413A /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -451,6 +467,7 @@
 		};
 		D546220829315FA6006F413A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D546221A2931802B006F413A /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -471,6 +488,7 @@
 		};
 		D546220929315FA6006F413A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D546221A2931802B006F413A /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

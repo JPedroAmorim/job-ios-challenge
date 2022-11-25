@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  JobsityChallenge
+//
+//  Created by João Pedro de Amorim on 25/11/22.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Ideally should not be commited in a public repo (as it could be considered sensitive data)
+// but supplied/injected from the organization's secret vault
+BASE_ENDPOINT = https:/$()/api.tvmaze.com/
