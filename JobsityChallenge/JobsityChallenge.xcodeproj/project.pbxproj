@@ -14,6 +14,8 @@
 		D54621F529315FA6006F413A /* JobsityChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54621F429315FA6006F413A /* JobsityChallengeTests.swift */; };
 		D54622102931639E006F413A /* HelloWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546220F2931639E006F413A /* HelloWorldView.swift */; };
 		D5462213293173A9006F413A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462212293173A9006F413A /* AppCoordinator.swift */; };
+		D54622152931790C006F413A /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54622142931790C006F413A /* ShowModel.swift */; };
+		D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D546221629317C44006F413A /* ShowsResponseFixture.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,8 @@
 		D54621F429315FA6006F413A /* JobsityChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsityChallengeTests.swift; sourceTree = "<group>"; };
 		D546220F2931639E006F413A /* HelloWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorldView.swift; sourceTree = "<group>"; };
 		D5462212293173A9006F413A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		D54622142931790C006F413A /* ShowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowModel.swift; sourceTree = "<group>"; };
+		D546221629317C44006F413A /* ShowsResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowsResponseFixture.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				D54621EB29315FA5006F413A /* Info.plist */,
 				D546220F2931639E006F413A /* HelloWorldView.swift */,
 				D5462212293173A9006F413A /* AppCoordinator.swift */,
+				D54622142931790C006F413A /* ShowModel.swift */,
 			);
 			path = JobsityChallenge;
 			sourceTree = "<group>";
@@ -92,9 +97,18 @@
 		D54621F329315FA6006F413A /* JobsityChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				D546221829317E20006F413A /* Fixtures */,
 				D54621F429315FA6006F413A /* JobsityChallengeTests.swift */,
 			);
 			path = JobsityChallengeTests;
+			sourceTree = "<group>";
+		};
+		D546221829317E20006F413A /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				D546221629317C44006F413A /* ShowsResponseFixture.json */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +239,7 @@
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
 				D54622102931639E006F413A /* HelloWorldView.swift in Sources */,
 				D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */,
+				D54622152931790C006F413A /* ShowModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
