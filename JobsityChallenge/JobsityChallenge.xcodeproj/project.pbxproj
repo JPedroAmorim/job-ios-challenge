@@ -87,6 +87,7 @@
 		D54621DC29315FA4006F413A /* JobsityChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				D546222B29319D33006F413A /* Model */,
 				D546221F293186A3006F413A /* ShowListing */,
 				D546221929317FF4006F413A /* Configuration */,
 				D54621DD29315FA4006F413A /* AppDelegate.swift */,
@@ -95,7 +96,6 @@
 				D54621E829315FA5006F413A /* LaunchScreen.storyboard */,
 				D54621EB29315FA5006F413A /* Info.plist */,
 				D5462212293173A9006F413A /* AppCoordinator.swift */,
-				D54622142931790C006F413A /* ShowModel.swift */,
 				D546221B29318175006F413A /* Environment.swift */,
 			);
 			path = JobsityChallenge;
@@ -133,6 +133,14 @@
 				D5462220293186B7006F413A /* ShowListingView.swift */,
 			);
 			path = ShowListing;
+			sourceTree = "<group>";
+		};
+		D546222B29319D33006F413A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D54622142931790C006F413A /* ShowModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
