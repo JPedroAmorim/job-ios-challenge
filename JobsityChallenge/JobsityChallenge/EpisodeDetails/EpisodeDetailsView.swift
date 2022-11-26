@@ -12,7 +12,7 @@ struct EpisodeDetailsView: View {
 
     var body: some View {
         VStack(spacing: Constants.elementSpacing) {
-            PosterImage(url: episode.posterImageURL)
+            PosterImage(url: episode.posterImageURL, cornerRadius: Constants.posterImageCornerRadius)
                 .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
                 .padding(.vertical, Constants.posterImagePadding)
 
@@ -38,7 +38,8 @@ extension EpisodeDetailsView {
     enum Constants {
         static let elementSpacing: CGFloat = 10
         static let posterImageDimensions: CGSize = .init(width: 200, height: 20)
-        static let posterImagePadding: CGFloat = 40
+        static let posterImagePadding: CGFloat = 80
+        static let posterImageCornerRadius: CGFloat = 20
         static let textElementSpacing: CGFloat = 20
         static let textElementPadding: CGFloat = 30
     }

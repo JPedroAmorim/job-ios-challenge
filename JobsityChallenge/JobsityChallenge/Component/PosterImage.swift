@@ -9,22 +9,24 @@ import SwiftUI
 
 struct PosterImage: View {
     let url: URL
+    let contentMode: ContentMode
+    let cornerRadius: CGFloat
+
+    init(url: URL, contentMode: ContentMode = .fill, cornerRadius: CGFloat = .zero) {
+        self.url = url
+        self.contentMode = contentMode
+        self.cornerRadius = cornerRadius
+    }
 
     var body: some View {
         AsyncImage(url: url) { image in
             image
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .cornerRadius(Constants.cornerRadius)
+                .aspectRatio(contentMode: contentMode)
+                .cornerRadius(cornerRadius)
         } placeholder: {
             Color.gray
         }
-    }
-}
-
-extension PosterImage {
-    enum Constants {
-        static let cornerRadius: CGFloat = 20
     }
 }
 

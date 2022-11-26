@@ -14,17 +14,24 @@ struct ShowListingView: View {
         self.viewModel = viewModel
     }
 
+    var gridItems: [GridItem] {
+        Array(repeating: .init(.flexible()), count: Constants.numberOfRows)
+    }
+
     var body: some View {
         switch viewModel.state {
         case .success(let data):
-            List {
-                ForEach(data) { show in
-                    renderCell(from: show)
-                        .onTapGesture {
-                            viewModel.onTapShow(show)
-                        }
+            ScrollView {
+                LazyVGrid(columns: gridItems) {
+                    ForEach(data) { show in
+                        renderCell(from: show)
+                            .onTapGesture {
+                                viewModel.onTapShow(show)
+                            }
+                    }
                 }
             }
+            .navigationTitle("Shows")
         case .loading:
             ProgressView()
         case .error(let error):
@@ -33,10 +40,12 @@ struct ShowListingView: View {
     }
 
     @ViewBuilder private func renderCell(from show: ShowModel) -> some View {
-        HStack(spacing: Constants.cellSpacing) {
-            PosterImage(url: show.posterImageURL)
-                  .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
+        VStack(spacing: Constants.cellSpacing) {
+            PosterImage(url: show.posterImageURL, contentMode: .fit)
+                .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
             Text(show.name)
+                .fontWeight(.thin)
+                .lineLimit(Constants.titleLineLimit)
         }
     }
 }
@@ -83,7 +92,9 @@ extension ShowListingView {
     enum Constants {
         static let cellSpacing: CGFloat = 10
         static let cellCornerRadius: CGFloat = 20
-        static let posterImageDimensions: CGSize = .init(width: 90, height: 80)
+        static let posterImageDimensions: CGSize = .init(width: 120, height: 120)
+        static let numberOfRows: Int = 3
+        static let titleLineLimit: Int = 1
     }
 }
 

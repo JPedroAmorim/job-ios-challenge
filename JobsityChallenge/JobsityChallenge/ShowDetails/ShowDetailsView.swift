@@ -32,6 +32,7 @@ struct ShowDetailsView: View {
                     PosterImage(url: viewModel.show.posterImageURL)
                         .frame(width: Constants.posterImageDimensions.width,
                                height: Constants.posterImageDimensions.height)
+                        .padding(.vertical, Constants.posterImagePadding)
                     renderShowInformation()
                 }
             }
@@ -135,7 +136,8 @@ extension ShowDetailsView {
     enum Constants {
         static let elementSpacing: CGFloat = 20
         static let separator: String = ", "
-        static let posterImageDimensions: CGSize = .init(width: 60, height: 60)
+        static let posterImageDimensions: CGSize = .init(width: 110, height: 130)
+        static let posterImagePadding: CGFloat = 30
         static let textHorizontalPadding: CGFloat = 20
     }
 }
