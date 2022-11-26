@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct ShowListingService {
+protocol ShowListingServiceProtocol {
+    func getShows() async throws -> [ShowModel]
+}
+
+struct ShowListingService: ShowListingServiceProtocol {
     enum ShowListingServiceError: Error {
         case invalidURL
     }

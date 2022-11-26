@@ -22,7 +22,7 @@ class AppCoordinator {
     // MARK: - Methods
 
     func start() {
-        let helloWorldViewController = UIHostingController(rootView: HelloWorldView())
-        navigationController.setViewControllers([helloWorldViewController], animated: false)
+        let showListingHostingController = UIHostingController(rootView: ShowListingView(viewModel: .init()))
+        navigationController.setViewControllers([showListingHostingController], animated: false)
     }
 }

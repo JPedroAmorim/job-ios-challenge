@@ -12,12 +12,12 @@
 		D54621E729315FA5006F413A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54621E629315FA5006F413A /* Assets.xcassets */; };
 		D54621EA29315FA5006F413A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54621E829315FA5006F413A /* LaunchScreen.storyboard */; };
 		D54621F529315FA6006F413A /* JobsityChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54621F429315FA6006F413A /* JobsityChallengeTests.swift */; };
-		D54622102931639E006F413A /* HelloWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546220F2931639E006F413A /* HelloWorldView.swift */; };
 		D5462213293173A9006F413A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462212293173A9006F413A /* AppCoordinator.swift */; };
 		D54622152931790C006F413A /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54622142931790C006F413A /* ShowModel.swift */; };
 		D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D546221629317C44006F413A /* ShowsResponseFixture.json */; };
 		D546221C29318175006F413A /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221B29318175006F413A /* Environment.swift */; };
 		D546221E29318451006F413A /* ShowListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221D29318451006F413A /* ShowListingService.swift */; };
+		D5462221293186B7006F413A /* ShowListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462220293186B7006F413A /* ShowListingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,13 +39,13 @@
 		D54621EB29315FA5006F413A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D54621F029315FA5006F413A /* JobsityChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsityChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54621F429315FA6006F413A /* JobsityChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsityChallengeTests.swift; sourceTree = "<group>"; };
-		D546220F2931639E006F413A /* HelloWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorldView.swift; sourceTree = "<group>"; };
 		D5462212293173A9006F413A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D54622142931790C006F413A /* ShowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowModel.swift; sourceTree = "<group>"; };
 		D546221629317C44006F413A /* ShowsResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowsResponseFixture.json; sourceTree = "<group>"; };
 		D546221A2931802B006F413A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D546221B29318175006F413A /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		D546221D29318451006F413A /* ShowListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListingService.swift; sourceTree = "<group>"; };
+		D5462220293186B7006F413A /* ShowListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,17 +87,16 @@
 		D54621DC29315FA4006F413A /* JobsityChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				D546221F293186A3006F413A /* ShowListing */,
 				D546221929317FF4006F413A /* Configuration */,
 				D54621DD29315FA4006F413A /* AppDelegate.swift */,
 				D54621DF29315FA4006F413A /* SceneDelegate.swift */,
 				D54621E629315FA5006F413A /* Assets.xcassets */,
 				D54621E829315FA5006F413A /* LaunchScreen.storyboard */,
 				D54621EB29315FA5006F413A /* Info.plist */,
-				D546220F2931639E006F413A /* HelloWorldView.swift */,
 				D5462212293173A9006F413A /* AppCoordinator.swift */,
 				D54622142931790C006F413A /* ShowModel.swift */,
 				D546221B29318175006F413A /* Environment.swift */,
-				D546221D29318451006F413A /* ShowListingService.swift */,
 			);
 			path = JobsityChallenge;
 			sourceTree = "<group>";
@@ -125,6 +124,15 @@
 				D546221A2931802B006F413A /* Config.xcconfig */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		D546221F293186A3006F413A /* ShowListing */ = {
+			isa = PBXGroup;
+			children = (
+				D546221D29318451006F413A /* ShowListingService.swift */,
+				D5462220293186B7006F413A /* ShowListingView.swift */,
+			);
+			path = ShowListing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,8 +263,8 @@
 				D546221C29318175006F413A /* Environment.swift in Sources */,
 				D546221E29318451006F413A /* ShowListingService.swift in Sources */,
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
-				D54622102931639E006F413A /* HelloWorldView.swift in Sources */,
 				D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */,
+				D5462221293186B7006F413A /* ShowListingView.swift in Sources */,
 				D54622152931790C006F413A /* ShowModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
