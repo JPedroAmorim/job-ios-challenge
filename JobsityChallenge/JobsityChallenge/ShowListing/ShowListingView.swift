@@ -106,14 +106,20 @@ extension ShowListingView_Previews {
                 "name": "Kirby Buckets",
                 "image": {
                   "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg"
-                }
+                },
+                "genres": ["Comedy"],
+                "schedule": { "time": "22:00", "days": ["Thursday"] },
+                "summary": "Sample summary"
               },
               {
                 "id": 251,
                 "name": "Downton Abbey",
                 "image": {
                   "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/1/4601.jpg"
-                }
+                },
+                "genres": ["Drama"],
+                "schedule": { "time": "22:00", "days": ["Friday"] },
+                "summary": "Sample summary"
               }
             ]
             """
