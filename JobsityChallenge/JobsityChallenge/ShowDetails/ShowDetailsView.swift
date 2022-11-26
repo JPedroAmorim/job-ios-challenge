@@ -58,10 +58,20 @@ struct ShowDetailsView: View {
         ForEach(episodesBySeason.keys.sorted(by: <), id: \.self) { season in
             Section("Season \(season)") {
                 ForEach(episodesBySeason[season, default: []]) { episode in
-                    Text(episode.name)
+                    renderEpisode(from: episode)
                 }
             }
         }
+    }
+
+    @ViewBuilder private func renderEpisode(from episode: EpisodeModel) -> some View {
+        Button(
+            action: { viewModel.onTapEpisode(episode) },
+            label: {
+                Text(episode.name)
+                    .foregroundColor(.black)
+                    .withMinimumHitArea()
+            })
     }
 }
 
@@ -70,11 +80,18 @@ extension ShowDetailsView {
         @Published var state: State = .loading
 
         let show: ShowModel
+        let onTapEpisode: (EpisodeModel) -> Void
+
         private let service: ShowDetailsServiceProtocol
 
-        init(show: ShowModel, service: ShowDetailsServiceProtocol = ShowDetailsService()) {
+        init(
+            show: ShowModel,
+            service: ShowDetailsServiceProtocol = ShowDetailsService(),
+            onTapEpisode: @escaping (EpisodeModel) -> Void
+        ) {
             self.show = show
             self.service = service
+            self.onTapEpisode = onTapEpisode
             fetchData()
         }
 
@@ -140,7 +157,9 @@ struct ShowDetailsView_Previews: PreviewProvider {
 
     static var previews: some View {
         if let debugShow = Self.debugShow {
-            ShowDetailsView(viewModel: .init(show: debugShow, service: MockService()))
+            ShowDetailsView(
+                viewModel: .init(show: debugShow, service: MockService()) { _ in }
+            )
         }
     }
 }

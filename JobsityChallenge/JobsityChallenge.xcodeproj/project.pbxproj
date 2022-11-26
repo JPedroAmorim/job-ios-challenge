@@ -12,6 +12,8 @@
 		D5057B422931A4F100F1D8E8 /* ShowDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5057B412931A4F100F1D8E8 /* ShowDetailsService.swift */; };
 		D5057B452931AA8700F1D8E8 /* PosterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5057B442931AA8700F1D8E8 /* PosterImage.swift */; };
 		D5057B482931AD7400F1D8E8 /* String+stripHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5057B472931AD7400F1D8E8 /* String+stripHTML.swift */; };
+		D5057B4D2932AC5D00F1D8E8 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5057B4C2932AC5D00F1D8E8 /* EpisodeDetailsView.swift */; };
+		D5057B4F2932B7A100F1D8E8 /* View+withMinimumHitArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5057B4E2932B7A100F1D8E8 /* View+withMinimumHitArea.swift */; };
 		D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54621DD29315FA4006F413A /* AppDelegate.swift */; };
 		D54621E029315FA4006F413A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54621DF29315FA4006F413A /* SceneDelegate.swift */; };
 		D54621E729315FA5006F413A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54621E629315FA5006F413A /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 		D5057B412931A4F100F1D8E8 /* ShowDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsService.swift; sourceTree = "<group>"; };
 		D5057B442931AA8700F1D8E8 /* PosterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImage.swift; sourceTree = "<group>"; };
 		D5057B472931AD7400F1D8E8 /* String+stripHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+stripHTML.swift"; sourceTree = "<group>"; };
+		D5057B4C2932AC5D00F1D8E8 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
+		D5057B4E2932B7A100F1D8E8 /* View+withMinimumHitArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+withMinimumHitArea.swift"; sourceTree = "<group>"; };
 		D54621DA29315FA4006F413A /* JobsityChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsityChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54621DD29315FA4006F413A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D54621DF29315FA4006F413A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,8 +103,17 @@
 			isa = PBXGroup;
 			children = (
 				D5057B472931AD7400F1D8E8 /* String+stripHTML.swift */,
+				D5057B4E2932B7A100F1D8E8 /* View+withMinimumHitArea.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D5057B4B2932AA4A00F1D8E8 /* EpisodeDetails */ = {
+			isa = PBXGroup;
+			children = (
+				D5057B4C2932AC5D00F1D8E8 /* EpisodeDetailsView.swift */,
+			);
+			path = EpisodeDetails;
 			sourceTree = "<group>";
 		};
 		D54621D129315FA4006F413A = {
@@ -127,8 +140,9 @@
 				D5057B462931AD6500F1D8E8 /* Extensions */,
 				D5057B432931AA7A00F1D8E8 /* Component */,
 				D5057B3E2931A4D700F1D8E8 /* ShowDetails */,
-				D546222B29319D33006F413A /* Model */,
 				D546221F293186A3006F413A /* ShowListing */,
+				D5057B4B2932AA4A00F1D8E8 /* EpisodeDetails */,
+				D546222B29319D33006F413A /* Model */,
 				D546221929317FF4006F413A /* Configuration */,
 				D54621DD29315FA4006F413A /* AppDelegate.swift */,
 				D54621DF29315FA4006F413A /* SceneDelegate.swift */,
@@ -311,6 +325,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5462213293173A9006F413A /* AppCoordinator.swift in Sources */,
+				D5057B4D2932AC5D00F1D8E8 /* EpisodeDetailsView.swift in Sources */,
+				D5057B4F2932B7A100F1D8E8 /* View+withMinimumHitArea.swift in Sources */,
 				D5057B452931AA8700F1D8E8 /* PosterImage.swift in Sources */,
 				D546221C29318175006F413A /* Environment.swift in Sources */,
 				D546221E29318451006F413A /* ShowListingService.swift in Sources */,

@@ -37,7 +37,22 @@ class AppCoordinator {
     }
 
     func navigateToShowDetails(for show: ShowModel) {
-        let showDetailsHostingController = UIHostingController(rootView: ShowDetailsView(viewModel: .init(show: show)))
+        let onTapEpisode: (EpisodeModel) -> Void = { [weak self] episode in
+            guard let self = self else { return }
+            self.navigateToEpisodeDetails(for: episode)
+        }
+
+        let showDetailsViewModel: ShowDetailsView.ViewModel = .init(show: show, onTapEpisode: onTapEpisode)
+
+        let showDetailsHostingController = UIHostingController(
+            rootView: ShowDetailsView(viewModel: showDetailsViewModel)
+        )
+
         navigationController.pushViewController(showDetailsHostingController, animated: true)
+    }
+
+    func navigateToEpisodeDetails(for episode: EpisodeModel) {
+        let episodeDetailsHostingController = UIHostingController(rootView: EpisodeDetailsView(episode: episode))
+        navigationController.pushViewController(episodeDetailsHostingController, animated: true)
     }
 }
