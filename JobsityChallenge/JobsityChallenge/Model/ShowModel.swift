@@ -26,7 +26,7 @@ struct ShowModel: Decodable, Identifiable {
     }
 
     enum ImageCodingKeys: String, CodingKey {
-        case medium
+        case original
     }
 
     enum ScheduleCodingKeys: String, CodingKey {
@@ -41,10 +41,28 @@ struct ShowModel: Decodable, Identifiable {
 
         self.name = try rootContainer.decode(String.self, forKey: .name)
         self.id = try rootContainer.decode(Int.self, forKey: .id)
-        self.posterImageURL = try imageContainer.decode(URL.self, forKey: .medium)
+        self.posterImageURL = try imageContainer.decode(URL.self, forKey: .original)
         self.genres = try rootContainer.decode([String].self, forKey: .genres)
         self.airTime = try scheduleCotnainer.decode(String.self, forKey: .time)
         self.airDays = try scheduleCotnainer.decode([String].self, forKey: .days)
         self.summary = try rootContainer.decode(String.self, forKey: .summary)
+    }
+
+    init(
+        id: Int,
+        name: String,
+        posterImageURL: URL,
+        genres: [String],
+        airTime: String,
+        airDays: [String],
+        summary: String
+    ) {
+        self.id = id
+        self.name = name
+        self.posterImageURL = posterImageURL
+        self.genres = genres
+        self.airTime = airTime
+        self.airDays = airDays
+        self.summary = summary
     }
 }

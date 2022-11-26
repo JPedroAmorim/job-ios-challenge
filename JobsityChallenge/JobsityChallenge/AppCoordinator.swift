@@ -22,7 +22,22 @@ class AppCoordinator {
     // MARK: - Methods
 
     func start() {
-        let showListingHostingController = UIHostingController(rootView: ShowListingView(viewModel: .init()))
+        let onTapShow: (ShowModel) -> Void = { [weak self] show in
+            guard let self = self else { return }
+            self.navigateToShowDetails(for: show)
+        }
+
+        let showListingViewModel: ShowListingView.ViewModel = .init(onTapShow: onTapShow)
+
+        let showListingHostingController = UIHostingController(
+            rootView: ShowListingView(viewModel: showListingViewModel)
+        )
+
         navigationController.setViewControllers([showListingHostingController], animated: false)
+    }
+
+    func navigateToShowDetails(for show: ShowModel) {
+        let showDetailsHostingController = UIHostingController(rootView: ShowDetailsView(viewModel: .init(show: show)))
+        navigationController.pushViewController(showDetailsHostingController, animated: true)
     }
 }

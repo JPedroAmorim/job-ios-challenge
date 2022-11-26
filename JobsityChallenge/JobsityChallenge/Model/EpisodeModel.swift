@@ -25,7 +25,7 @@ struct EpisodeModel: Decodable, Identifiable {
     }
 
     enum ImageCodingKeys: String, CodingKey {
-        case medium
+        case original
     }
 
     init(from decoder: Decoder) throws {
@@ -34,9 +34,18 @@ struct EpisodeModel: Decodable, Identifiable {
 
         self.id = try rootContainer.decode(Int.self, forKey: .id)
         self.name = try rootContainer.decode(String.self, forKey: .name)
-        self.posterImageURL = try imageContainer.decode(URL.self, forKey: .medium)
+        self.posterImageURL = try imageContainer.decode(URL.self, forKey: .original)
         self.number = try rootContainer.decode(Int.self, forKey: .number)
         self.season = try rootContainer.decode(Int.self, forKey: .season)
         self.summary = try rootContainer.decode(String.self, forKey: .summary)
+    }
+
+    init(id: Int, name: String, posterImageURL: URL, number: Int, season: Int, summary: String) {
+        self.id = id
+        self.name = name
+        self.posterImageURL = posterImageURL
+        self.number = number
+        self.season = season
+        self.summary = summary
     }
 }
