@@ -22,20 +22,29 @@ struct ShowListingView: View {
         switch viewModel.state {
         case .success(let data):
             ScrollView {
-                LazyVGrid(columns: gridItems) {
-                    ForEach(data) { show in
-                        renderCell(from: show)
-                            .onTapGesture {
-                                viewModel.onTapShow(show)
-                            }
-                    }
-                }
+                renderGrid(from: data)
             }
             .navigationTitle("Shows")
         case .loading:
             ProgressView()
         case .error(let error):
             Text("Unable to fetch shows with error(\(String(describing: error))")
+        }
+    }
+
+    @ViewBuilder private func renderGrid(from data: [ShowModel]) -> some View {
+        LazyVGrid(columns: gridItems) {
+            ForEach(data) { show in
+                renderCell(from: show)
+                    .onTapGesture {
+                        viewModel.onTapShow(show)
+                    }
+            }
+            // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
+            Color.clear
+                .onAppear {
+                    viewModel.fetchData()
+                }
         }
     }
 
@@ -63,7 +72,7 @@ extension ShowListingView {
             fetchData()
         }
 
-        private func fetchData() {
+        func fetchData() {
             Task {
                 do {
                     let data = try await service.getShows()

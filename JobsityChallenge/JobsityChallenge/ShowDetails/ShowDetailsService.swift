@@ -12,10 +12,6 @@ protocol ShowDetailsServiceProtocol {
 }
 
 struct ShowDetailsService: ShowDetailsServiceProtocol {
-    enum ShowDetailsServiceError: Error {
-        case invalidURL
-    }
-
     func getEpisodes(for showId: String) async throws -> [EpisodeModel] {
         let endpointSuffix = "shows/\(showId)/episodes"
 
@@ -27,5 +23,11 @@ struct ShowDetailsService: ShowDetailsServiceProtocol {
 
         let episodes = try JSONDecoder().decode([EpisodeModel].self, from: data)
         return episodes
+    }
+}
+
+extension ShowDetailsService {
+    enum ShowDetailsServiceError: Error {
+        case invalidURL
     }
 }
