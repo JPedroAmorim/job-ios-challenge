@@ -11,17 +11,34 @@ class AppCoordinator {
 
     // MARK: - Properties
 
-    private let navigationController = UINavigationController()
+    private let tabBarController = UITabBarController()
 
     // MARK: - Public API
 
     var rootViewController: UIViewController {
-        return navigationController
+        return tabBarController
+    }
+
+    private var currentNavigationController: UINavigationController? {
+        tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - Methods
 
     func start() {
+        let showDetailsController = setupShowDetails()
+        showDetailsController.tabBarItem = .init(tabBarSystemItem: .featured, tag: .zero)
+
+        // TODO: Implement search controller
+        let searchController = UINavigationController()
+        searchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
+
+        tabBarController.viewControllers = [showDetailsController, searchController]
+    }
+
+    func setupShowDetails() -> UINavigationController {
+        let navigationController = UINavigationController()
+
         let onTapShow: (ShowTileModel) -> Void = { [weak self] show in
             guard let self = self else { return }
             self.navigateToShowDetails(for: show)
@@ -34,6 +51,7 @@ class AppCoordinator {
         )
 
         navigationController.setViewControllers([showListingHostingController], animated: false)
+        return navigationController
     }
 
     func navigateToShowDetails(for show: ShowTileModel) {
@@ -48,11 +66,11 @@ class AppCoordinator {
             rootView: ShowDetailsView(viewModel: showDetailsViewModel)
         )
 
-        navigationController.pushViewController(showDetailsHostingController, animated: true)
+        currentNavigationController?.pushViewController(showDetailsHostingController, animated: true)
     }
 
     func navigateToEpisodeDetails(for episode: EpisodeModel) {
         let episodeDetailsHostingController = UIHostingController(rootView: EpisodeDetailsView(episode: episode))
-        navigationController.pushViewController(episodeDetailsHostingController, animated: true)
+        currentNavigationController?.pushViewController(episodeDetailsHostingController, animated: true)
     }
 }
