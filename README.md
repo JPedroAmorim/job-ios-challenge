@@ -37,7 +37,7 @@ I'm also exporting a signed `.ipa` file under the `distribution` folder case the
 
 ## Prerequisites (Development)
 
-This project uses [Swiftlint] for linting in build scripts and [Fastlane] as a mean to build the project, test and lint it pre-commit and pre-push actions.
+This project uses [Swiftlint] for linting in build scripts and [Fastlane] as a mean to build the project, test and lint it in pre-commit and pre-push actions.
 
 To install `swiftlint`, from the command line, do:
 
