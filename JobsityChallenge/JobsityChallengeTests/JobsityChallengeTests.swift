@@ -35,6 +35,18 @@ final class JobsityChallengeTests: XCTestCase {
         testDecoding(for: "ShowsResponseFixture", decoding: [TileModel].self)
     }
 
+    func testPeopleSearchModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "SearchPersonResponseFixture", decoding: [PeopleSearchModel].self)
+    }
+
+    func testShowSearchModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "SearchShowResponseFixture", decoding: [ShowSearchModel].self)
+    }
+
+    func testPersonDetailsModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "PersonDetailsResponseFixture", decoding: [PersonDetailsModel].self)
+    }
+
     func testFavoritesListingService_whenFetchingForTheFirstTime_returnsEmptyArray() {
         // Given
         let service = FavoritesListingService(storage: userDefaults)

@@ -30,6 +30,9 @@
 		D557B4F729331B4700F5F4B0 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4F629331B4700F5F4B0 /* GridView.swift */; };
 		D557B4F92933294000F5F4B0 /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4F82933294000F5F4B0 /* ErrorStateView.swift */; };
 		D557B4FF29334D6600F5F4B0 /* FavoritesListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4FE29334D6600F5F4B0 /* FavoritesListingService.swift */; };
+		D5833AE02933C926001C3D92 /* SearchPersonResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D5833ADF2933C926001C3D92 /* SearchPersonResponseFixture.json */; };
+		D5833AE32933CAF8001C3D92 /* SearchShowResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D5833AE12933CAF2001C3D92 /* SearchShowResponseFixture.json */; };
+		D5833AE52933CB38001C3D92 /* PersonDetailsResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D5833AE42933CB38001C3D92 /* PersonDetailsResponseFixture.json */; };
 		D5A8AC8B2933677100437953 /* FavoritesListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AC8A2933677100437953 /* FavoritesListingView.swift */; };
 		D5A8AC8D2933731D00437953 /* MockFavoritesListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AC8C2933731D00437953 /* MockFavoritesListingService.swift */; };
 		D5A8AC932933832D00437953 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AC912933832D00437953 /* SearchView.swift */; };
@@ -85,6 +88,9 @@
 		D557B4F629331B4700F5F4B0 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D557B4F82933294000F5F4B0 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		D557B4FE29334D6600F5F4B0 /* FavoritesListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListingService.swift; sourceTree = "<group>"; };
+		D5833ADF2933C926001C3D92 /* SearchPersonResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchPersonResponseFixture.json; sourceTree = "<group>"; };
+		D5833AE12933CAF2001C3D92 /* SearchShowResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchShowResponseFixture.json; sourceTree = "<group>"; };
+		D5833AE42933CB38001C3D92 /* PersonDetailsResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PersonDetailsResponseFixture.json; sourceTree = "<group>"; };
 		D5A8AC8A2933677100437953 /* FavoritesListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListingView.swift; sourceTree = "<group>"; };
 		D5A8AC8C2933731D00437953 /* MockFavoritesListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFavoritesListingService.swift; sourceTree = "<group>"; };
 		D5A8AC912933832D00437953 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -215,6 +221,9 @@
 				D546221629317C44006F413A /* ShowsResponseFixture.json */,
 				D5057B3A2931A30C00F1D8E8 /* EpisodesResponseFixture.json */,
 				D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */,
+				D5833ADF2933C926001C3D92 /* SearchPersonResponseFixture.json */,
+				D5833AE12933CAF2001C3D92 /* SearchShowResponseFixture.json */,
+				D5833AE42933CB38001C3D92 /* PersonDetailsResponseFixture.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -373,6 +382,9 @@
 			files = (
 				D5FE3F8129330DE200CDBE6B /* ShowResponseFixture.json in Resources */,
 				D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */,
+				D5833AE02933C926001C3D92 /* SearchPersonResponseFixture.json in Resources */,
+				D5833AE32933CAF8001C3D92 /* SearchShowResponseFixture.json in Resources */,
+				D5833AE52933CB38001C3D92 /* PersonDetailsResponseFixture.json in Resources */,
 				D5057B3B2931A30C00F1D8E8 /* EpisodesResponseFixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
