@@ -86,6 +86,8 @@ This project uses a very straightforward, simple and scalable approach of `MVVVM
 
 The main target of the app is `JobsityChallenge`, but there's a unit test target as well, named `JobsityChallengeTests`.
 
+The application's entry point is when the `AppCoordinator` takes hold of the application's window `rootViewController` in `SceneDelegate`. From there, things should be very easy to follow.
+
 <!-- Links -->
 
 [🛠 xcode 14+]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
