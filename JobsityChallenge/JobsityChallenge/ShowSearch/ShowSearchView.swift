@@ -108,11 +108,11 @@ extension ShowSearchView {
 
         func fetchData(for searchTerm: String) {
             guard !searchTerm.isEmpty else {
-                self.state = .idle
+                state = .idle
                 return
             }
 
-            self.state = .loading
+            state = .loading
 
             Task {
                 do {
