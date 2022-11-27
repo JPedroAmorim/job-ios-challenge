@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct ShowListingView: View {
     @ObservedObject private var viewModel: ViewModel
@@ -23,8 +24,8 @@ struct ShowListingView: View {
             .navigationTitle("Shows")
         case .loading:
             ProgressView()
-        case .error(let error):
-            Text("Unable to fetch shows with error(\(String(describing: error))")
+        case .error:
+            ErrorStateView(onRetry: { viewModel.fetchData() })
         }
     }
 
@@ -91,8 +92,8 @@ extension ShowListingView {
 
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-
-                self.state = .error(error)
+                os_log(.debug, "ShowListingView error occurred Error(\(String(describing: error)))")
+                self.state = .error
             }
         }
     }
@@ -102,7 +103,7 @@ extension ShowListingView.ViewModel {
     enum State {
         case success([ShowTileModel])
         case loading
-        case error(Error)
+        case error
     }
 }
 

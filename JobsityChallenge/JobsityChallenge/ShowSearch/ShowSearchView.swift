@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import OSLog
 
 struct ShowSearchView: View {
     @ObservedObject private var viewModel: ViewModel
@@ -65,8 +66,8 @@ struct ShowSearchView: View {
         case .loading:
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        case .error(let error):
-            Text("Unable to fetch shows with error(\(String(describing: error))")
+        case .error:
+            ErrorStateView(onRetry: { viewModel.fetchData(for: viewModel.searchTerm) })
         }
     }
 }
@@ -124,8 +125,8 @@ extension ShowSearchView {
         private func handleError(error: Error) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-
-                self.state = .error(error)
+                os_log(.debug, "ShowSearchView error occurred Error(\(String(describing: error)))")
+                self.state = .error
             }
         }
     }
@@ -136,7 +137,7 @@ extension ShowSearchView.ViewModel {
         case idle
         case success([ShowTileModel])
         case loading
-        case error(Error)
+        case error
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct ShowDetailsView: View {
     @ObservedObject private var viewModel: ViewModel
@@ -20,8 +21,8 @@ struct ShowDetailsView: View {
             renderShowDetails(viewData: data)
         case .loading:
             ProgressView()
-        case .error(let error):
-            Text("Unable to fetch show details with error(\(String(describing: error))")
+        case .error:
+            ErrorStateView(onRetry: { viewModel.fetchData() })
         }
     }
 
@@ -96,7 +97,7 @@ extension ShowDetailsView {
             fetchData()
         }
 
-        private func fetchData() {
+        func fetchData() {
             Task {
                 do {
                     let data = try await service.getShowAndEpisodes(for: String(show.id))
@@ -120,8 +121,8 @@ extension ShowDetailsView {
         private func handleError(error: Error) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-
-                self.state = .error(error)
+                os_log(.debug, "ShowDetailsView error occurred Error(\(String(describing: error)))")
+                self.state = .error
             }
         }
 
@@ -148,7 +149,7 @@ extension ShowDetailsView.ViewModel {
     enum State {
         case success(ViewData)
         case loading
-        case error(Error)
+        case error
     }
 }
 
