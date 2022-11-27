@@ -11,6 +11,7 @@ import OSLog
 
 struct ShowSearchView: View {
     @ObservedObject private var viewModel: ViewModel
+    @FocusState private var textFieldState: TextFieldState?
 
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -31,6 +32,7 @@ struct ShowSearchView: View {
             HStack {
                 Image(systemName: Constants.searchSystemIconIdentifier)
                 TextField("Search", text: $viewModel.searchTerm)
+                    .focused($textFieldState, equals: .focused)
             }
             .foregroundColor(.gray)
             .padding(.leading, Constants.searchBarPadding)
@@ -44,6 +46,12 @@ struct ShowSearchView: View {
             renderSearchBar()
             content()
             Spacer()
+        }
+        .onTapGesture {
+            textFieldState = nil // Dismiss keyboard on tap
+        }
+        .onDisappear {
+            textFieldState = nil // Dismiss keyboard on view's dismissal
         }
     }
 
@@ -148,6 +156,12 @@ extension ShowSearchView {
         static let searchBarPadding: CGFloat = 10
         static let searchBarHeight: CGFloat = 40
         static let wrapperSpacing: CGFloat = 20
+    }
+}
+
+extension ShowSearchView {
+    enum TextFieldState: Hashable {
+        case focused
     }
 }
 
