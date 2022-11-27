@@ -59,6 +59,8 @@ extension ShowListingView {
         }
 
         func fetchData() {
+            state = .loading
+
             Task {
                 do {
                     let data = try await service.getShows()

@@ -142,6 +142,8 @@ extension ShowDetailsView {
         }
 
         func fetchData() {
+            state = .loading
+
             Task {
                 do {
                     let data = try await service.getShowAndEpisodes(for: String(show.id))

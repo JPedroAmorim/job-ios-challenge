@@ -74,6 +74,8 @@ extension PersonDetailsView {
         }
 
         func fetchData() {
+            state = .loading
+
             Task {
                 do {
                     let data = try await service.getShows(for: String(person.id))

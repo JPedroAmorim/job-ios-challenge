@@ -73,6 +73,7 @@ extension FavoritesListingView {
 
         func fetchData() {
             state = .loading
+
             do {
                 let shows = try service.getFavoriteShows()
 
