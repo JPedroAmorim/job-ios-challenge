@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowTileModel: Decodable, Identifiable {
+struct ShowTileModel: Codable {
     let id: Int
     let name: String
     let posterImageURL: URL
@@ -21,6 +21,19 @@ struct ShowTileModel: Decodable, Identifiable {
     enum ImageCodingKeys: String, CodingKey {
         case original
     }
+
+    // MARK: - Encodable Conformance
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+
+        var imageContainer = container.nestedContainer(keyedBy: ImageCodingKeys.self, forKey: .image)
+        try imageContainer.encode(posterImageURL, forKey: .original)
+    }
+
+    // MARK: - Decodable Conformance
 
     init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
@@ -37,3 +50,7 @@ struct ShowTileModel: Decodable, Identifiable {
         self.posterImageURL = posterImageURL
     }
 }
+
+// MARK: - Extra Protocol Conformance
+
+extension ShowTileModel: Equatable, Identifiable { }

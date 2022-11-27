@@ -9,6 +9,28 @@ import XCTest
 @testable import JobsityChallenge
 
 final class JobsityChallengeTests: XCTestCase {
+    private var userDefaults: UserDefaults = {
+        guard let userDefaults = UserDefaults(suiteName: #file) else {
+            fatalError("Unable to set mock UserDefaults for testing")
+        }
+
+        return userDefaults
+    }()
+
+    private var testShowTileModel: ShowTileModel = {
+        guard
+            let posterImageURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
+        else {
+            fatalError("Unable to create posterImageURL")
+        }
+
+        return .init(id: 0, name: "Test", posterImageURL: posterImageURL)
+    }()
+
+    override func setUp() async throws {
+        userDefaults.removePersistentDomain(forName: #file)
+    }
+
     func testShowModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
         testDecoding(for: "ShowResponseFixture", decoding: ShowModel.self)
     }
@@ -19,6 +41,83 @@ final class JobsityChallengeTests: XCTestCase {
 
     func testShowTileModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
         testDecoding(for: "ShowsResponseFixture", decoding: [ShowTileModel].self)
+    }
+
+    func testFavoritesListingService_whenFetchingForTheFirstTime_returnsEmptyArray() {
+        // Given
+        let service = FavoritesListingService(storage: userDefaults)
+
+        // When
+        do {
+            let result = try service.getFavoriteShows()
+
+            // Then
+            XCTAssertEqual(result, [])
+        } catch {
+            XCTFail("Unable to get favorite shows Error(\(String(describing: error)))")
+        }
+    }
+
+    func testFavoritesListingService_whenSave_doesNotThrow() {
+        // Given
+        let service = FavoritesListingService(storage: userDefaults)
+
+        // When
+        do {
+            try service.saveShow(show: testShowTileModel)
+            // Then (no throw = Success)
+        } catch {
+            XCTFail("Unable to save show Error(\(String(describing: error)))")
+        }
+    }
+
+    func testFavoritesListingService_whenGet_returnsCorrectly() {
+        // Given
+        let service = FavoritesListingService(storage: userDefaults)
+
+        // When
+        do {
+            try service.saveShow(show: testShowTileModel)
+            let result = try service.getFavoriteShows()
+
+            // Then
+            XCTAssertEqual(result, [testShowTileModel])
+        } catch {
+            XCTFail("Unable to get show Error(\(String(describing: error)))")
+        }
+    }
+
+    func testFavoritesListingService_whenRemove_returnsCorrectly() {
+        // Given
+        let service = FavoritesListingService(storage: userDefaults)
+
+        // When
+        do {
+            try service.saveShow(show: testShowTileModel)
+            try service.removeFromFavorites(show: testShowTileModel)
+            let result = try service.getFavoriteShows()
+
+            // Then
+            XCTAssertEqual(result, [])
+        } catch {
+            XCTFail("Unable to delete show Error(\(String(describing: error)))")
+        }
+    }
+
+    func testFavoritesListingService_whenIsFavorite_returnsCorrectly() {
+        // Given
+        let service = FavoritesListingService(storage: userDefaults)
+
+        // When
+        do {
+            try service.saveShow(show: testShowTileModel)
+            let result = try service.isFavorite(show: testShowTileModel)
+
+            // Then
+            XCTAssertTrue(result)
+        } catch {
+            XCTFail("Unable to determine if show is in favorites list Error(\(String(describing: error)))")
+        }
     }
 }
 
@@ -32,7 +131,7 @@ extension JobsityChallengeTests {
         do {
             _ = try decoder.decode(T.self, from: fixtureData)
         } catch {
-            XCTFail("Decoding failed with error \(String(describing: error))")
+            XCTFail("Decoding failed with error Error(\(String(describing: error)))")
         }
     }
 
