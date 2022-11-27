@@ -11,13 +11,15 @@ struct EpisodeDetailsView: View {
     let episode: EpisodeModel
 
     var body: some View {
-        VStack(spacing: Constants.elementSpacing) {
-            PosterImage(url: episode.posterImageURL, cornerRadius: Constants.posterImageCornerRadius)
-                .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
-                .padding(.vertical, Constants.posterImagePadding)
+        ScrollView {
+            VStack(spacing: Constants.elementSpacing) {
+                PosterImage(url: episode.posterImageURL, cornerRadius: Constants.posterImageCornerRadius)
+                    .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
+                    .padding(.vertical, Constants.posterImagePadding)
 
-            renderEpisodeInformation()
-            Spacer()
+                renderEpisodeInformation()
+                Spacer()
+            }
         }
     }
 
