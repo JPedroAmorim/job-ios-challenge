@@ -50,7 +50,7 @@ struct ShowDetailsView: View {
                 Text("Genres: \(show.genres.joined(separator: Constants.separator))")
                 Text("Summary: \(show.summary.stripHTML())")
             }
-            .font(.caption)
+            .font(.subheadline)
         }
         .padding(.horizontal, Constants.textHorizontalPadding)
     }
