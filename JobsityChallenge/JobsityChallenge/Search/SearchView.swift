@@ -1,5 +1,5 @@
 //
-//  ShowSearchView.swift
+//  SearchView.swift
 //  JobsityChallenge
 //
 //  Created by João Pedro de Amorim on 27/11/22.
@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 import OSLog
 
-struct ShowSearchView: View {
+struct SearchView: View {
     @ObservedObject private var viewModel: ViewModel
     @FocusState private var textFieldState: TextFieldState?
 
@@ -55,10 +55,10 @@ struct ShowSearchView: View {
         }
     }
 
-    @ViewBuilder private func renderGrid(from data: [ShowTileModel]) -> some View {
-        ShowGridView {
+    @ViewBuilder private func renderGrid(from data: [TileModel]) -> some View {
+        GridView {
             ForEach(data) { show in
-                ShowTileView(show: show, onTap: viewModel.onTapShow)
+                TileView(show: show, onTap: viewModel.onTapShow)
             }
         }
     }
@@ -82,17 +82,17 @@ struct ShowSearchView: View {
     }
 }
 
-extension ShowSearchView {
+extension SearchView {
     class ViewModel: ObservableObject {
         @Published var searchTerm: String = ""
         @Published var state: State = .idle
 
-        let onTapShow: (ShowTileModel) -> Void
-        private let service: ShowSearchServiceProtocol
+        let onTapShow: (TileModel) -> Void
+        private let service: SearchServiceProtocol
 
         private var disposeBag = Set<AnyCancellable>()
 
-        init(service: ShowSearchServiceProtocol = ShowSearchService(), onTapShow: @escaping (ShowTileModel) -> Void) {
+        init(service: SearchServiceProtocol = SearchService(), onTapShow: @escaping (TileModel) -> Void) {
             self.service = service
             self.onTapShow = onTapShow
 
@@ -124,7 +124,7 @@ extension ShowSearchView {
             }
         }
 
-        private func handleSuccess(with data: [ShowTileModel]) {
+        private func handleSuccess(with data: [TileModel]) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
@@ -135,23 +135,23 @@ extension ShowSearchView {
         private func handleError(error: Error) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                os_log(.debug, "ShowSearchView error occurred Error(\(String(describing: error)))")
+                os_log(.debug, "SearchView error occurred Error(\(String(describing: error)))")
                 self.state = .error
             }
         }
     }
 }
 
-extension ShowSearchView.ViewModel {
+extension SearchView.ViewModel {
     enum State {
         case idle
-        case success([ShowTileModel])
+        case success([TileModel])
         case loading
         case error
     }
 }
 
-extension ShowSearchView {
+extension SearchView {
     enum Constants {
         static let searchDebouncePeriod: TimeInterval = 0.35
         static let searchSystemIconIdentifier = "magnifyingglass"
@@ -161,23 +161,23 @@ extension ShowSearchView {
     }
 }
 
-extension ShowSearchView {
+extension SearchView {
     enum TextFieldState: Hashable {
         case focused
     }
 }
 
-struct ShowSearchView_Previews: PreviewProvider {
+struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        ShowSearchView(
+        SearchView(
             viewModel: .init(service: MockService()) { _ in }
         )
     }
 }
 
-extension ShowSearchView_Previews {
-    struct MockService: ShowSearchServiceProtocol {
-        func getShows(for searchTerm: String) async throws -> [ShowTileModel] {
+extension SearchView_Previews {
+    struct MockService: SearchServiceProtocol {
+        func getShows(for searchTerm: String) async throws -> [TileModel] {
             guard
                 let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
             else {

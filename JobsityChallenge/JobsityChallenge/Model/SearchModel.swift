@@ -9,5 +9,5 @@ import Foundation
 
 struct SearchShowModel: Decodable {
     let score: Double
-    let show: ShowTileModel
+    let show: TileModel
 }

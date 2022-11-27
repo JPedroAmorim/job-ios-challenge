@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ShowTileView: View {
-    let show: ShowTileModel
-    let onTap: (ShowTileModel) -> Void
+struct TileView: View {
+    let show: TileModel
+    let onTap: (TileModel) -> Void
 
     var body: some View {
         VStack(spacing: Constants.spacing) {
@@ -25,7 +25,7 @@ struct ShowTileView: View {
     }
 }
 
-extension ShowTileView {
+extension TileView {
     enum Constants {
         static let spacing: CGFloat = 10
         static let lineLimit: Int = 1
@@ -33,8 +33,8 @@ extension ShowTileView {
     }
 }
 
-struct ShowTileView_Previews: PreviewProvider {
-    static var debugShowTile: ShowTileModel? = {
+struct TileView_Previews: PreviewProvider {
+    static var debugTile: TileModel? = {
         guard
             let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
         else {
@@ -45,8 +45,8 @@ struct ShowTileView_Previews: PreviewProvider {
     }()
 
     static var previews: some View {
-        if let debugShowTile = debugShowTile {
-            ShowTileView(show: debugShowTile) { _ in }
+        if let debugTile = debugTile {
+            TileView(show: debugTile) { _ in }
         }
     }
 }

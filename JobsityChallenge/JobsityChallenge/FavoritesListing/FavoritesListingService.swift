@@ -8,10 +8,10 @@
 import Foundation
 
 protocol FavoritesListingServiceProtocol {
-    func saveShow(show: ShowTileModel) throws
-    func getFavoriteShows() throws -> [ShowTileModel]
-    func removeFromFavorites(show: ShowTileModel) throws
-    func isFavorite(show: ShowTileModel) throws -> Bool
+    func saveShow(show: TileModel) throws
+    func getFavoriteShows() throws -> [TileModel]
+    func removeFromFavorites(show: TileModel) throws
+    func isFavorite(show: TileModel) throws -> Bool
 }
 
 struct FavoritesListingService: FavoritesListingServiceProtocol {
@@ -25,39 +25,39 @@ struct FavoritesListingService: FavoritesListingServiceProtocol {
         self.storage = storage
     }
 
-    func getFavoriteShows() throws -> [ShowTileModel] {
+    func getFavoriteShows() throws -> [TileModel] {
         guard let data = storage.data(forKey: Self.favoritesKey) else {
             // No entries yet, initialize with an empty array
-            let shows: [ShowTileModel] = []
+            let shows: [TileModel] = []
             let showsData = try Self.encoder.encode(shows)
             storage.set(showsData, forKey: Self.favoritesKey)
 
             return []
         }
 
-        let shows = try Self.decoder.decode([ShowTileModel].self, from: data)
+        let shows = try Self.decoder.decode([TileModel].self, from: data)
 
         return shows
     }
 
-    func saveShow(show: ShowTileModel) throws {
+    func saveShow(show: TileModel) throws {
         var shows = try getFavoriteShows()
         shows += [show]
         try save(shows: shows)
     }
 
-    func removeFromFavorites(show: ShowTileModel) throws {
+    func removeFromFavorites(show: TileModel) throws {
         var shows = try getFavoriteShows()
         shows.removeAll(where: { $0 == show })
         try save(shows: shows)
     }
 
-    func isFavorite(show: ShowTileModel) throws -> Bool {
+    func isFavorite(show: TileModel) throws -> Bool {
         let shows = try getFavoriteShows()
         return shows.contains(where: { $0 == show })
     }
 
-    private func save(shows: [ShowTileModel]) throws {
+    private func save(shows: [TileModel]) throws {
         let showsData = try Self.encoder.encode(shows)
         storage.set(showsData, forKey: Self.favoritesKey)
     }

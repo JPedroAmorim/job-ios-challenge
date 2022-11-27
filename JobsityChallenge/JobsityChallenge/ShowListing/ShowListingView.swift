@@ -29,11 +29,11 @@ struct ShowListingView: View {
         }
     }
 
-    @ViewBuilder private func renderGrid(from data: [ShowTileModel]) -> some View {
-        ShowGridView {
+    @ViewBuilder private func renderGrid(from data: [TileModel]) -> some View {
+        GridView {
             Group {
                 ForEach(data) { show in
-                    ShowTileView(show: show, onTap: viewModel.onTapShow)
+                    TileView(show: show, onTap: viewModel.onTapShow)
                 }
                 // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
                 ProgressView()
@@ -49,10 +49,10 @@ extension ShowListingView {
     class ViewModel: ObservableObject {
         @Published var state: State = .loading
 
-        let onTapShow: (ShowTileModel) -> Void
+        let onTapShow: (TileModel) -> Void
         private let service: ShowListingServiceProtocol
 
-        init(service: ShowListingServiceProtocol = ShowListingService(), onTapShow: @escaping (ShowTileModel) -> Void) {
+        init(service: ShowListingServiceProtocol = ShowListingService(), onTapShow: @escaping (TileModel) -> Void) {
             self.service = service
             self.onTapShow = onTapShow
             fetchData()
@@ -69,7 +69,7 @@ extension ShowListingView {
             }
         }
 
-        private func handleSuccess(with data: [ShowTileModel]) {
+        private func handleSuccess(with data: [TileModel]) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
@@ -101,7 +101,7 @@ extension ShowListingView {
 
 extension ShowListingView.ViewModel {
     enum State {
-        case success([ShowTileModel])
+        case success([TileModel])
         case loading
         case error
     }
@@ -123,7 +123,7 @@ struct ShowListingView_Previews: PreviewProvider {
 
 extension ShowListingView_Previews {
     struct MockService: ShowListingServiceProtocol {
-        func getShows() async throws -> [ShowTileModel] {
+        func getShows() async throws -> [TileModel] {
             guard
                 let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
             else {

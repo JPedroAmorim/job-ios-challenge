@@ -1,5 +1,5 @@
 //
-//  ShowSearchService.swift
+//  SearchService.swift
 //  JobsityChallenge
 //
 //  Created by João Pedro de Amorim on 27/11/22.
@@ -7,20 +7,20 @@
 
 import Foundation
 
-protocol ShowSearchServiceProtocol {
-    func getShows(for searchTerm: String) async throws -> [ShowTileModel]
+protocol SearchServiceProtocol {
+    func getShows(for searchTerm: String) async throws -> [TileModel]
 }
 
-struct ShowSearchService: ShowSearchServiceProtocol {
-    func getShows(for searchTerm: String) async throws -> [ShowTileModel] {
+struct SearchService: SearchServiceProtocol {
+    func getShows(for searchTerm: String) async throws -> [TileModel] {
         guard let sanitizedSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            throw ShowSearchServiceError.invalidURL
+            throw SearchServiceError.invalidURL
         }
 
         let endpointSuffix = "search/shows?q=\(sanitizedSearchTerm)"
 
         guard let url = URL(string: Environment.baseEndpoint + endpointSuffix) else {
-            throw ShowSearchServiceError.invalidURL
+            throw SearchServiceError.invalidURL
         }
 
         let (data, _) = try await URLSession.shared.data(from: url)
@@ -35,8 +35,8 @@ struct ShowSearchService: ShowSearchServiceProtocol {
     }
 }
 
-extension ShowSearchService {
-    enum ShowSearchServiceError: Error {
+extension SearchService {
+    enum SearchServiceError: Error {
         case invalidURL
     }
 }

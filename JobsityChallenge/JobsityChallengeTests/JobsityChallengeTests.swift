@@ -17,7 +17,7 @@ final class JobsityChallengeTests: XCTestCase {
         return userDefaults
     }()
 
-    private var testShowTileModel: ShowTileModel = {
+    private var testTileModel: TileModel = {
         guard
             let posterImageURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
         else {
@@ -39,8 +39,8 @@ final class JobsityChallengeTests: XCTestCase {
         testDecoding(for: "EpisodesResponseFixture", decoding: [EpisodeModel].self)
     }
 
-    func testShowTileModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
-        testDecoding(for: "ShowsResponseFixture", decoding: [ShowTileModel].self)
+    func testTileModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "ShowsResponseFixture", decoding: [TileModel].self)
     }
 
     func testFavoritesListingService_whenFetchingForTheFirstTime_returnsEmptyArray() {
@@ -64,7 +64,7 @@ final class JobsityChallengeTests: XCTestCase {
 
         // When
         do {
-            try service.saveShow(show: testShowTileModel)
+            try service.saveShow(show: testTileModel)
             // Then (no throw = Success)
         } catch {
             XCTFail("Unable to save show Error(\(String(describing: error)))")
@@ -77,11 +77,11 @@ final class JobsityChallengeTests: XCTestCase {
 
         // When
         do {
-            try service.saveShow(show: testShowTileModel)
+            try service.saveShow(show: testTileModel)
             let result = try service.getFavoriteShows()
 
             // Then
-            XCTAssertEqual(result, [testShowTileModel])
+            XCTAssertEqual(result, [testTileModel])
         } catch {
             XCTFail("Unable to get show Error(\(String(describing: error)))")
         }
@@ -93,8 +93,8 @@ final class JobsityChallengeTests: XCTestCase {
 
         // When
         do {
-            try service.saveShow(show: testShowTileModel)
-            try service.removeFromFavorites(show: testShowTileModel)
+            try service.saveShow(show: testTileModel)
+            try service.removeFromFavorites(show: testTileModel)
             let result = try service.getFavoriteShows()
 
             // Then
@@ -110,8 +110,8 @@ final class JobsityChallengeTests: XCTestCase {
 
         // When
         do {
-            try service.saveShow(show: testShowTileModel)
-            let result = try service.isFavorite(show: testShowTileModel)
+            try service.saveShow(show: testTileModel)
+            let result = try service.isFavorite(show: testTileModel)
 
             // Then
             XCTAssertTrue(result)

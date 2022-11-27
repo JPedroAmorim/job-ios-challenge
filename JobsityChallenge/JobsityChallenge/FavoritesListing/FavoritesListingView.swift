@@ -41,11 +41,11 @@ struct FavoritesListingView: View {
 
     @ViewBuilder private func renderFavorites(from favorites: ViewModel.FavoritesByAlphabeticalOrder) -> some View {
         ScrollView {
-            ShowGridView {
+            GridView {
                 ForEach(favorites.keys.sorted(by: <), id: \.self) { character in
                     Section(String(character)) {
                         ForEach(favorites[character, default: []]) { show in
-                            ShowTileView(show: show, onTap: viewModel.onTapShow)
+                            TileView(show: show, onTap: viewModel.onTapShow)
                         }
                     }
                 }
@@ -58,13 +58,13 @@ extension FavoritesListingView {
     class ViewModel: ObservableObject {
         @Published var state: State = .loading
 
-        let onTapShow: (ShowTileModel) -> Void
+        let onTapShow: (TileModel) -> Void
 
         private let service: FavoritesListingServiceProtocol
 
         init(
             service: FavoritesListingServiceProtocol = FavoritesListingService(),
-            onTapShow: @escaping (ShowTileModel) -> Void
+            onTapShow: @escaping (TileModel) -> Void
         ) {
             self.service = service
             self.onTapShow = onTapShow
@@ -89,7 +89,7 @@ extension FavoritesListingView {
             }
         }
 
-        private func makeFavoritesByAlphabeticalOrder(from shows: [ShowTileModel]) -> FavoritesByAlphabeticalOrder {
+        private func makeFavoritesByAlphabeticalOrder(from shows: [TileModel]) -> FavoritesByAlphabeticalOrder {
             return shows.reduce(into: [:]) { acc, show in
                 if let firstCharacter = show.name.first {
                     acc[firstCharacter, default: []].append(show)
@@ -115,7 +115,7 @@ extension FavoritesListingView.ViewModel {
 }
 
 extension FavoritesListingView.ViewModel {
-    typealias FavoritesByAlphabeticalOrder = [Character: [ShowTileModel]]
+    typealias FavoritesByAlphabeticalOrder = [Character: [TileModel]]
 }
 
 struct FavoritesListingView_Previews: PreviewProvider {

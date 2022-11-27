@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockFavoritesListingService: FavoritesListingServiceProtocol {
-    private static func getMockShows() throws -> [ShowTileModel] {
+    private static func getMockShows() throws -> [TileModel] {
         guard
             let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg")
         else {
@@ -21,23 +21,23 @@ struct MockFavoritesListingService: FavoritesListingServiceProtocol {
         ]
     }
 
-    func getFavoriteShows() throws -> [ShowTileModel] {
+    func getFavoriteShows() throws -> [TileModel] {
         return try Self.getMockShows()
     }
 
-    func saveShow(show: ShowTileModel) throws {
+    func saveShow(show: TileModel) throws {
         // no-op
     }
 
-    func removeFromFavorites(show: ShowTileModel) throws {
+    func removeFromFavorites(show: TileModel) throws {
         // no-op
     }
 
-    func isFavorite(show: ShowTileModel) throws -> Bool {
+    func isFavorite(show: TileModel) throws -> Bool {
         return true
     }
 
-    private func save(shows: [ShowTileModel]) throws {
+    private func save(shows: [TileModel]) throws {
         // no-op
     }
 }

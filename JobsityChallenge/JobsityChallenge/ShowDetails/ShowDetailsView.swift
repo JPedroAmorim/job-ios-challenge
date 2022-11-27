@@ -116,7 +116,7 @@ extension ShowDetailsView {
         @Published var state: State = .loading
         @Published var favoriteAlertInfo: AlertInfo?
 
-        let show: ShowTileModel
+        let show: TileModel
         let onTapEpisode: (EpisodeModel) -> Void
 
         private let service: ShowDetailsServiceProtocol
@@ -129,7 +129,7 @@ extension ShowDetailsView {
         }
 
         init(
-            show: ShowTileModel,
+            show: TileModel,
             service: ShowDetailsServiceProtocol = ShowDetailsService(),
             favoritesService: FavoritesListingServiceProtocol = FavoritesListingService(),
             onTapEpisode: @escaping (EpisodeModel) -> Void
@@ -216,7 +216,7 @@ extension ShowDetailsView {
 }
 
 struct ShowDetailsView_Previews: PreviewProvider {
-    static var debugShow: ShowTileModel? = {
+    static var debugShow: TileModel? = {
         guard let sampleURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg") else {
             return nil
         }

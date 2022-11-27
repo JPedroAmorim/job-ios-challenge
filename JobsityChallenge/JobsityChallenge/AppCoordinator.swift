@@ -12,7 +12,7 @@ class AppCoordinator {
     // MARK: - Properties
 
     private let tabBarController = UITabBarController()
-    private lazy var onTapShow: (ShowTileModel) -> Void = { [weak self] show in
+    private lazy var onTapShow: (TileModel) -> Void = { [weak self] show in
         guard let self = self else { return }
         self.navigateToShowDetails(for: show)
     }
@@ -32,13 +32,13 @@ class AppCoordinator {
         let showListingController = setupShowListing()
         showListingController.tabBarItem = .init(tabBarSystemItem: .featured, tag: 0)
 
-        let searchController = setupShowSearch()
-        searchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
+        let showSearchController = setupShowSearch()
+        showSearchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
 
         let favoritesController = setupFavorites()
         favoritesController.tabBarItem = .init(tabBarSystemItem: .favorites, tag: 2)
 
-        tabBarController.viewControllers = [showListingController, searchController, favoritesController]
+        tabBarController.viewControllers = [showListingController, showSearchController, favoritesController]
     }
 
     func setupShowListing() -> UINavigationController {
@@ -57,9 +57,9 @@ class AppCoordinator {
     func setupShowSearch() -> UINavigationController {
         let navigationController = UINavigationController()
 
-        let showSearchViewModel: ShowSearchView.ViewModel = .init(onTapShow: onTapShow)
+        let showSearchViewModel: SearchView.ViewModel = .init(onTapShow: onTapShow)
 
-        let showSearchHostingController = UIHostingController(rootView: ShowSearchView(viewModel: showSearchViewModel))
+        let showSearchHostingController = UIHostingController(rootView: SearchView(viewModel: showSearchViewModel))
 
         navigationController.setViewControllers([showSearchHostingController], animated: false)
         return navigationController
@@ -78,7 +78,7 @@ class AppCoordinator {
         return navigationController
     }
 
-    func navigateToShowDetails(for show: ShowTileModel) {
+    func navigateToShowDetails(for show: TileModel) {
         let onTapEpisode: (EpisodeModel) -> Void = { [weak self] episode in
             guard let self = self else { return }
             self.navigateToEpisodeDetails(for: episode)

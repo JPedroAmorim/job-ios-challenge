@@ -1,5 +1,5 @@
 //
-//  ShowTileModel.swift
+//  TileModel.swift
 //  JobsityChallenge
 //
 //  Created by João Pedro de Amorim on 26/11/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowTileModel: Codable {
+struct TileModel: Codable {
     let id: Int
     let name: String
     let posterImageURL: URL
@@ -53,4 +53,4 @@ struct ShowTileModel: Codable {
 
 // MARK: - Extra Protocol Conformance
 
-extension ShowTileModel: Equatable, Identifiable { }
+extension TileModel: Equatable, Identifiable { }
