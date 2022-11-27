@@ -227,7 +227,11 @@ struct ShowDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         if let debugShow = debugShow {
             ShowDetailsView(
-                viewModel: .init(show: debugShow, service: MockService()) { _ in }
+                viewModel: .init(
+                    show: debugShow,
+                    service: MockService(),
+                    favoritesService: MockFavoritesListingService()
+                ) { _ in }
             )
         }
     }

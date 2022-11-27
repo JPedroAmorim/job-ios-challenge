@@ -30,6 +30,8 @@
 		D557B4F729331B4700F5F4B0 /* ShowGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4F629331B4700F5F4B0 /* ShowGridView.swift */; };
 		D557B4F92933294000F5F4B0 /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4F82933294000F5F4B0 /* ErrorStateView.swift */; };
 		D557B4FF29334D6600F5F4B0 /* FavoritesListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4FE29334D6600F5F4B0 /* FavoritesListingService.swift */; };
+		D5A8AC8B2933677100437953 /* FavoritesListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AC8A2933677100437953 /* FavoritesListingView.swift */; };
+		D5A8AC8D2933731D00437953 /* MockFavoritesListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AC8C2933731D00437953 /* MockFavoritesListingService.swift */; };
 		D5FE3F8129330DE200CDBE6B /* ShowResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */; };
 		D5FE3F842933149900CDBE6B /* ShowSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FE3F832933149900CDBE6B /* ShowSearchModel.swift */; };
 		D5FE3F862933161400CDBE6B /* ShowSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FE3F852933161400CDBE6B /* ShowSearchView.swift */; };
@@ -75,6 +77,8 @@
 		D557B4F629331B4700F5F4B0 /* ShowGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowGridView.swift; sourceTree = "<group>"; };
 		D557B4F82933294000F5F4B0 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		D557B4FE29334D6600F5F4B0 /* FavoritesListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListingService.swift; sourceTree = "<group>"; };
+		D5A8AC8A2933677100437953 /* FavoritesListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListingView.swift; sourceTree = "<group>"; };
+		D5A8AC8C2933731D00437953 /* MockFavoritesListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFavoritesListingService.swift; sourceTree = "<group>"; };
 		D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowResponseFixture.json; sourceTree = "<group>"; };
 		D5FE3F832933149900CDBE6B /* ShowSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchModel.swift; sourceTree = "<group>"; };
 		D5FE3F852933161400CDBE6B /* ShowSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchView.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				D557B4FE29334D6600F5F4B0 /* FavoritesListingService.swift */,
+				D5A8AC8A2933677100437953 /* FavoritesListingView.swift */,
+				D5A8AC8C2933731D00437953 /* MockFavoritesListingService.swift */,
 			);
 			path = FavoritesListing;
 			sourceTree = "<group>";
@@ -380,6 +386,8 @@
 				D557B4F729331B4700F5F4B0 /* ShowGridView.swift in Sources */,
 				D5FE3F862933161400CDBE6B /* ShowSearchView.swift in Sources */,
 				D5FE3F882933162300CDBE6B /* ShowSearchService.swift in Sources */,
+				D5A8AC8D2933731D00437953 /* MockFavoritesListingService.swift in Sources */,
+				D5A8AC8B2933677100437953 /* FavoritesListingView.swift in Sources */,
 				D54621DE29315FA4006F413A /* AppDelegate.swift in Sources */,
 				D5FE3F8A2933190700CDBE6B /* ShowTileView.swift in Sources */,
 				D5FE3F842933149900CDBE6B /* ShowSearchModel.swift in Sources */,
@@ -544,9 +552,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QTB2MSNYGB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JobsityChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -578,9 +586,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QTB2MSNYGB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JobsityChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -35,7 +35,10 @@ class AppCoordinator {
         let searchController = setupShowSearch()
         searchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
 
-        tabBarController.viewControllers = [showListingController, searchController]
+        let favoritesController = setupFavorites()
+        favoritesController.tabBarItem = .init(tabBarSystemItem: .favorites, tag: 2)
+
+        tabBarController.viewControllers = [showListingController, searchController, favoritesController]
     }
 
     func setupShowListing() -> UINavigationController {
@@ -59,6 +62,19 @@ class AppCoordinator {
         let showSearchHostingController = UIHostingController(rootView: ShowSearchView(viewModel: showSearchViewModel))
 
         navigationController.setViewControllers([showSearchHostingController], animated: false)
+        return navigationController
+    }
+
+    private func setupFavorites() -> UINavigationController {
+        let navigationController = UINavigationController()
+
+        let favoritesViewModel: FavoritesListingView.ViewModel = .init(onTapShow: onTapShow)
+
+        let favoritesHostingController = UIHostingController(
+            rootView: FavoritesListingView(viewModel: favoritesViewModel)
+        )
+
+        navigationController.setViewControllers([favoritesHostingController], animated: false)
         return navigationController
     }
 
