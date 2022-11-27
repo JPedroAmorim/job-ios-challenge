@@ -20,6 +20,7 @@ struct FavoritesListingView: View {
             .onAppear {
                 viewModel.fetchData()
             }
+            .navigationTitle("Favorites")
     }
 
     @ViewBuilder private func renderBasedOnState() -> some View {
