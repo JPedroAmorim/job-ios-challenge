@@ -45,7 +45,7 @@ struct FavoritesListingView: View {
                 ForEach(favorites.keys.sorted(by: <), id: \.self) { character in
                     Section(String(character)) {
                         ForEach(favorites[character, default: []]) { show in
-                            TileView(show: show, onTap: viewModel.onTapShow)
+                            TileView(model: show, onTap: viewModel.onTapShow)
                         }
                     }
                 }

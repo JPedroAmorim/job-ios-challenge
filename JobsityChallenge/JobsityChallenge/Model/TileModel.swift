@@ -10,7 +10,7 @@ import Foundation
 struct TileModel: Codable {
     let id: Int
     let name: String
-    let posterImageURL: URL
+    let posterImageURL: URL?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,14 +37,14 @@ struct TileModel: Codable {
 
     init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
-        let imageContainer = try rootContainer.nestedContainer(keyedBy: ImageCodingKeys.self, forKey: .image)
+        let imageContainer = try? rootContainer.nestedContainer(keyedBy: ImageCodingKeys.self, forKey: .image)
 
         self.name = try rootContainer.decode(String.self, forKey: .name)
         self.id = try rootContainer.decode(Int.self, forKey: .id)
-        self.posterImageURL = try imageContainer.decode(URL.self, forKey: .original)
+        self.posterImageURL = try imageContainer?.decode(URL.self, forKey: .original)
     }
 
-    init(id: Int, name: String, posterImageURL: URL) {
+    init(id: Int, name: String, posterImageURL: URL?) {
         self.id = id
         self.name = name
         self.posterImageURL = posterImageURL

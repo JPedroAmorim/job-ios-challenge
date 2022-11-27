@@ -9,15 +9,9 @@ import Foundation
 
 struct MockFavoritesListingService: FavoritesListingServiceProtocol {
     private static func getMockShows() throws -> [TileModel] {
-        guard
-            let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg")
-        else {
-            throw MockFavoritesListingServiceError.invalidURL
-        }
-
         return [
-            .init(id: 0, name: "Sample Show #1", posterImageURL: posterURL),
-            .init(id: 1, name: "Sample Show #2", posterImageURL: posterURL)
+            .init(id: 0, name: "Sample Show #1", posterImageURL: URL.sampleURL()),
+            .init(id: 1, name: "Sample Show #2", posterImageURL: URL.sampleURL())
         ]
     }
 

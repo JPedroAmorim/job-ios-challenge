@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct TileView: View {
-    let show: TileModel
+    let model: TileModel
     let onTap: (TileModel) -> Void
 
     var body: some View {
         VStack(spacing: Constants.spacing) {
-            PosterImage(url: show.posterImageURL, contentMode: .fit)
+            PosterImage(url: model.posterImageURL, contentMode: .fit)
                 .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
-            Text(show.name)
+            Text(model.name)
                 .fontWeight(.thin)
                 .lineLimit(Constants.lineLimit)
         }
         .onTapGesture {
-            onTap(show)
+            onTap(model)
         }
     }
 }
@@ -34,19 +34,8 @@ extension TileView {
 }
 
 struct TileView_Previews: PreviewProvider {
-    static var debugTile: TileModel? = {
-        guard
-            let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
-        else {
-            return nil
-        }
-
-        return .init(id: 0, name: "SampleShow", posterImageURL: posterURL)
-    }()
-
+    static let debugTile: TileModel = .init(id: 0, name: "SampleShow", posterImageURL: URL.sampleURL())
     static var previews: some View {
-        if let debugTile = debugTile {
-            TileView(show: debugTile) { _ in }
-        }
+        TileView(model: debugTile) { _ in }
     }
 }

@@ -33,7 +33,7 @@ struct ShowListingView: View {
         GridView {
             Group {
                 ForEach(data) { show in
-                    TileView(show: show, onTap: viewModel.onTapShow)
+                    TileView(model: show, onTap: viewModel.onTapShow)
                 }
                 // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
                 ProgressView()
@@ -124,15 +124,9 @@ struct ShowListingView_Previews: PreviewProvider {
 extension ShowListingView_Previews {
     struct MockService: ShowListingServiceProtocol {
         func getShows() async throws -> [TileModel] {
-            guard
-                let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
-            else {
-                throw ShowListingService.ShowListingServiceError.invalidURL
-            }
-
             return [
-                .init(id: 0, name: "Sample Show #1", posterImageURL: posterURL),
-                .init(id: 1, name: "Sample Show #2", posterImageURL: posterURL)
+                .init(id: 0, name: "Sample Show #1", posterImageURL: URL.sampleURL()),
+                .init(id: 1, name: "Sample Show #2", posterImageURL: URL.sampleURL())
             ]
         }
     }

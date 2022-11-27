@@ -16,6 +16,11 @@ class AppCoordinator {
         guard let self = self else { return }
         self.navigateToShowDetails(for: show)
     }
+    private lazy var onTapPerson: (TileModel) -> Void = { [weak self] person in
+        guard let self = self else { return }
+        self.navigateToPersonDetails(for: person)
+    }
+
     // MARK: - Public API
 
     var rootViewController: UIViewController {
@@ -32,13 +37,29 @@ class AppCoordinator {
         let showListingController = setupShowListing()
         showListingController.tabBarItem = .init(tabBarSystemItem: .featured, tag: 0)
 
-        let showSearchController = setupShowSearch()
+        let showSearchController = setupSearch(
+            title: "Show Search",
+            service: ShowSearchService(),
+            onTapTile: onTapShow
+        )
         showSearchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
 
-        let favoritesController = setupFavorites()
-        favoritesController.tabBarItem = .init(tabBarSystemItem: .favorites, tag: 2)
+        let peopleSearchController = setupSearch(
+            title: "People Search",
+            service: PeopleSearchService(),
+            onTapTile: onTapPerson
+        )
+        peopleSearchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 2)
 
-        tabBarController.viewControllers = [showListingController, showSearchController, favoritesController]
+        let favoritesController = setupFavorites()
+        favoritesController.tabBarItem = .init(tabBarSystemItem: .favorites, tag: 3)
+
+        tabBarController.viewControllers = [
+            showListingController,
+            showSearchController,
+            peopleSearchController,
+            favoritesController
+        ]
     }
 
     func setupShowListing() -> UINavigationController {
@@ -54,14 +75,22 @@ class AppCoordinator {
         return navigationController
     }
 
-    func setupShowSearch() -> UINavigationController {
+    func setupSearch(
+        title: String,
+        service: SearchServiceProtocol,
+        onTapTile: @escaping (TileModel) -> Void
+    ) -> UINavigationController {
         let navigationController = UINavigationController()
 
-        let showSearchViewModel: SearchView.ViewModel = .init(onTapShow: onTapShow)
+        let searchViewModel: SearchView.ViewModel = .init(
+            title: title,
+            service: service,
+            onTapTile: onTapTile
+        )
 
-        let showSearchHostingController = UIHostingController(rootView: SearchView(viewModel: showSearchViewModel))
+        let searchHostingController = UIHostingController(rootView: SearchView(viewModel: searchViewModel))
 
-        navigationController.setViewControllers([showSearchHostingController], animated: false)
+        navigationController.setViewControllers([searchHostingController], animated: false)
         return navigationController
     }
 
@@ -96,5 +125,15 @@ class AppCoordinator {
     func navigateToEpisodeDetails(for episode: EpisodeModel) {
         let episodeDetailsHostingController = UIHostingController(rootView: EpisodeDetailsView(episode: episode))
         currentNavigationController?.pushViewController(episodeDetailsHostingController, animated: true)
+    }
+
+    func navigateToPersonDetails(for person: TileModel) {
+        let personDetailsViewModel = PersonDetailsView.ViewModel(person: person, onTapShow: onTapShow)
+
+        let personDetailsHostingController = UIHostingController(
+            rootView: PersonDetailsView(viewModel: personDetailsViewModel)
+        )
+
+        currentNavigationController?.pushViewController(personDetailsHostingController, animated: true)
     }
 }

@@ -216,24 +216,16 @@ extension ShowDetailsView {
 }
 
 struct ShowDetailsView_Previews: PreviewProvider {
-    static var debugShow: TileModel? = {
-        guard let sampleURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg") else {
-            return nil
-        }
-
-        return .init(id: 1, name: "Sample Show", posterImageURL: sampleURL)
-    }()
+    static var debugShow: TileModel = .init(id: 0, name: "SampleShow", posterImageURL: URL.sampleURL())
 
     static var previews: some View {
-        if let debugShow = debugShow {
-            ShowDetailsView(
-                viewModel: .init(
-                    show: debugShow,
-                    service: MockService(),
-                    favoritesService: MockFavoritesListingService()
-                ) { _ in }
-            )
-        }
+        ShowDetailsView(
+            viewModel: .init(
+                show: debugShow,
+                service: MockService(),
+                favoritesService: MockFavoritesListingService()
+            ) { _ in }
+        )
     }
 }
 
@@ -241,7 +233,7 @@ extension ShowDetailsView_Previews {
     struct MockService: ShowDetailsServiceProtocol {
         func getShowAndEpisodes(for showId: String) async throws -> ShowDetailsService.Payload {
             guard
-                let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
+                let posterURL = URL.sampleURL()
             else {
                 throw ShowDetailsService.ShowDetailsServiceError.invalidURL
             }

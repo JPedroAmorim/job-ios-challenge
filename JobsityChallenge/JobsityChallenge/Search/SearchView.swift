@@ -21,7 +21,7 @@ struct SearchView: View {
         renderSearchWrapper {
             renderBasedOnState()
         }
-        .navigationTitle("Search")
+        .navigationTitle(viewModel.title)
     }
 
     @ViewBuilder private func renderSearchBar() -> some View {
@@ -57,8 +57,8 @@ struct SearchView: View {
 
     @ViewBuilder private func renderGrid(from data: [TileModel]) -> some View {
         GridView {
-            ForEach(data) { show in
-                TileView(show: show, onTap: viewModel.onTapShow)
+            ForEach(data) { model in
+                TileView(model: model, onTap: viewModel.onTapTile)
             }
         }
     }
@@ -87,14 +87,20 @@ extension SearchView {
         @Published var searchTerm: String = ""
         @Published var state: State = .idle
 
-        let onTapShow: (TileModel) -> Void
+        let onTapTile: (TileModel) -> Void
+        let title: String
         private let service: SearchServiceProtocol
 
         private var disposeBag = Set<AnyCancellable>()
 
-        init(service: SearchServiceProtocol = SearchService(), onTapShow: @escaping (TileModel) -> Void) {
+        init(
+            title: String,
+            service: SearchServiceProtocol,
+            onTapTile: @escaping (TileModel) -> Void
+        ) {
+            self.title = title
             self.service = service
-            self.onTapShow = onTapShow
+            self.onTapTile = onTapTile
 
             $searchTerm
                 .dropFirst()
@@ -116,7 +122,7 @@ extension SearchView {
 
             Task {
                 do {
-                    let data = try await service.getShows(for: searchTerm)
+                    let data = try await service.getTiles(for: searchTerm)
                     handleSuccess(with: data)
                 } catch {
                     handleError(error: error)
@@ -170,23 +176,17 @@ extension SearchView {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
-            viewModel: .init(service: MockService()) { _ in }
+            viewModel: .init(title: "Search", service: MockService()) { _ in }
         )
     }
 }
 
 extension SearchView_Previews {
     struct MockService: SearchServiceProtocol {
-        func getShows(for searchTerm: String) async throws -> [TileModel] {
-            guard
-                let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
-            else {
-                throw ShowListingService.ShowListingServiceError.invalidURL
-            }
-
+        func getTiles(for searchTerm: String) async throws -> [TileModel] {
             return [
-                .init(id: 0, name: "Sample Show #1", posterImageURL: posterURL),
-                .init(id: 1, name: "Sample Show #2", posterImageURL: posterURL)
+                .init(id: 0, name: "Sample #1", posterImageURL: URL.sampleURL()),
+                .init(id: 1, name: "Sample #2", posterImageURL: URL.sampleURL())
             ]
         }
     }

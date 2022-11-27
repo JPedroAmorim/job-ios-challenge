@@ -17,15 +17,7 @@ final class JobsityChallengeTests: XCTestCase {
         return userDefaults
     }()
 
-    private var testTileModel: TileModel = {
-        guard
-            let posterImageURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
-        else {
-            fatalError("Unable to create posterImageURL")
-        }
-
-        return .init(id: 0, name: "Test", posterImageURL: posterImageURL)
-    }()
+    private let testTileModel: TileModel = .init(id: 0, name: "Test", posterImageURL: URL.sampleURL())
 
     override func setUp() async throws {
         userDefaults.removePersistentDomain(forName: #file)
