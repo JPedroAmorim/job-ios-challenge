@@ -4,7 +4,7 @@
 
 This is the repository regarding Jobsity's iOS coding challenge.
 
-https://user-images.githubusercontent.com/38262018/204124022-baf16ae0-10f4-4e28-88f9-ba1278f4c42b.mov
+https://user-images.githubusercontent.com/38262018/204142928-cf5d6b20-22b2-46bf-887b-9950c95b5365.mov
 
 ## Features done
 
@@ -21,6 +21,8 @@ https://user-images.githubusercontent.com/38262018/204124022-baf16ae0-10f4-4e28-
 - [x] Allow the user to save a series as a favorite.
 - [x] Allow the user to delete a series from the favorites list.
 - [x] Allow the user to browse their favorite series in alphabetical order, and click on one to see its details.
+- [x] Create a people search by listing the name and image of the person.
+- [x] After clicking on a person, the application should show the details of that person, such as: Name, Image, Series they have participated in (with a link to the series details)
 
 ## Prerequisites (Building)
 
