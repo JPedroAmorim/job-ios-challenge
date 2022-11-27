@@ -11,7 +11,9 @@ class ShowSearchService: BaseSearchService, SearchServiceProtocol {
     func getTiles(for searchTerm: String) async throws -> [TileModel] {
         let sanitizedSearchTerm = try sanitizeSearchTerm(searchTerm: searchTerm)
 
-        let fetchedData = try await fetch(using: sanitizedSearchTerm, decoding: ShowSearchModel.self)
+        let endpointSuffix = "search/shows?q=\(sanitizedSearchTerm)"
+
+        let fetchedData = try await fetch(using: endpointSuffix, decoding: ShowSearchModel.self)
 
         let shows = fetchedData.map { $0.show }
 
