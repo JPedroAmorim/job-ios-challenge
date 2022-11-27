@@ -32,7 +32,7 @@ struct ShowListingView: View {
         }
     }
 
-    @ViewBuilder private func renderGrid(from data: [ShowModel]) -> some View {
+    @ViewBuilder private func renderGrid(from data: [ShowTileModel]) -> some View {
         LazyVGrid(columns: gridItems) {
             ForEach(data) { show in
                 renderCell(from: show)
@@ -48,7 +48,7 @@ struct ShowListingView: View {
         }
     }
 
-    @ViewBuilder private func renderCell(from show: ShowModel) -> some View {
+    @ViewBuilder private func renderCell(from show: ShowTileModel) -> some View {
         VStack(spacing: Constants.cellSpacing) {
             PosterImage(url: show.posterImageURL, contentMode: .fit)
                 .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
@@ -63,10 +63,10 @@ extension ShowListingView {
     class ViewModel: ObservableObject {
         @Published var state: State = .loading
 
-        let onTapShow: (ShowModel) -> Void
+        let onTapShow: (ShowTileModel) -> Void
         private let service: ShowListingServiceProtocol
 
-        init(service: ShowListingServiceProtocol = ShowListingService(), onTapShow: @escaping (ShowModel) -> Void) {
+        init(service: ShowListingServiceProtocol = ShowListingService(), onTapShow: @escaping (ShowTileModel) -> Void) {
             self.service = service
             self.onTapShow = onTapShow
             fetchData()
@@ -83,7 +83,7 @@ extension ShowListingView {
             }
         }
 
-        private func handleSuccess(with data: [ShowModel]) {
+        private func handleSuccess(with data: [ShowTileModel]) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
@@ -115,7 +115,7 @@ extension ShowListingView {
 
 extension ShowListingView.ViewModel {
     enum State {
-        case success([ShowModel])
+        case success([ShowTileModel])
         case loading
         case error(Error)
     }
@@ -133,7 +133,6 @@ extension ShowListingView {
 }
 
 struct ShowListingView_Previews: PreviewProvider {
-
     static var previews: some View {
         ShowListingView(
             viewModel: .init(service: MockService()) { _ in }
@@ -143,38 +142,17 @@ struct ShowListingView_Previews: PreviewProvider {
 
 extension ShowListingView_Previews {
     struct MockService: ShowListingServiceProtocol {
-        func getShows() async throws -> [ShowModel] {
-            let json =
-            """
-            [
-              {
-                "id": 250,
-                "name": "Kirby Buckets",
-                "image": {
-                  "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg"
-                },
-                "genres": ["Comedy"],
-                "schedule": { "time": "22:00", "days": ["Thursday"] },
-                "summary": "Sample summary"
-              },
-              {
-                "id": 251,
-                "name": "Downton Abbey",
-                "image": {
-                  "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/1/4601.jpg"
-                },
-                "genres": ["Drama"],
-                "schedule": { "time": "22:00", "days": ["Friday"] },
-                "summary": "Sample summary"
-              }
-            ]
-            """
-
-            guard let debug = try? JSONDecoder().decode([ShowModel].self, from: Data(json.utf8)) else {
-                return []
+        func getShows() async throws -> [ShowTileModel] {
+            guard
+                let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
+            else {
+                throw ShowListingService.ShowListingServiceError.invalidURL
             }
 
-            return debug
+            return [
+                .init(id: 0, name: "Sample Show #1", posterImageURL: posterURL),
+                .init(id: 1, name: "Sample Show #2", posterImageURL: posterURL)
+            ]
         }
     }
 }

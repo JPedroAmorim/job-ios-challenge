@@ -22,7 +22,7 @@ class AppCoordinator {
     // MARK: - Methods
 
     func start() {
-        let onTapShow: (ShowModel) -> Void = { [weak self] show in
+        let onTapShow: (ShowTileModel) -> Void = { [weak self] show in
             guard let self = self else { return }
             self.navigateToShowDetails(for: show)
         }
@@ -36,7 +36,7 @@ class AppCoordinator {
         navigationController.setViewControllers([showListingHostingController], animated: false)
     }
 
-    func navigateToShowDetails(for show: ShowModel) {
+    func navigateToShowDetails(for show: ShowTileModel) {
         let onTapEpisode: (EpisodeModel) -> Void = { [weak self] episode in
             guard let self = self else { return }
             self.navigateToEpisodeDetails(for: episode)

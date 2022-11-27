@@ -17,7 +17,7 @@ struct ShowDetailsView: View {
     var body: some View {
         switch viewModel.state {
         case .success(let data):
-            renderShowDetails(episodesBySeason: data)
+            renderShowDetails(viewData: data)
         case .loading:
             ProgressView()
         case .error(let error):
@@ -25,30 +25,30 @@ struct ShowDetailsView: View {
         }
     }
 
-    @ViewBuilder private func renderShowDetails(episodesBySeason: ViewModel.EpisodesBySeason) -> some View {
+    @ViewBuilder private func renderShowDetails(viewData: ViewModel.ViewData) -> some View {
         List {
             Section {
                 VStack(spacing: Constants.elementSpacing) {
-                    PosterImage(url: viewModel.show.posterImageURL)
+                    PosterImage(url: viewData.show.posterImageURL)
                         .frame(width: Constants.posterImageDimensions.width,
                                height: Constants.posterImageDimensions.height)
                         .padding(.vertical, Constants.posterImagePadding)
-                    renderShowInformation()
+                    renderShowInformation(for: viewData.show)
                 }
             }
-            renderEpisodesBySeason(from: episodesBySeason)
+            renderEpisodesBySeason(from: viewData.episodesBySeason)
         }
     }
 
-    @ViewBuilder private func renderShowInformation() -> some View {
+    @ViewBuilder private func renderShowInformation(for show: ShowModel) -> some View {
         VStack(alignment: .leading, spacing: Constants.elementSpacing) {
-            Text(viewModel.show.name)
+            Text(show.name)
                 .font(.title)
             Group {
-                Text("Air time: \(viewModel.show.airTime)")
-                Text("Air days: \(viewModel.show.airDays.joined(separator: Constants.separator))")
-                Text("Genres: \(viewModel.show.genres.joined(separator: Constants.separator))")
-                Text("Summary: \(viewModel.show.summary.stripHTML())")
+                Text("Air time: \(show.airTime)")
+                Text("Air days: \(show.airDays.joined(separator: Constants.separator))")
+                Text("Genres: \(show.genres.joined(separator: Constants.separator))")
+                Text("Summary: \(show.summary.stripHTML())")
             }
             .font(.caption)
         }
@@ -80,13 +80,13 @@ extension ShowDetailsView {
     class ViewModel: ObservableObject {
         @Published var state: State = .loading
 
-        let show: ShowModel
+        let show: ShowTileModel
         let onTapEpisode: (EpisodeModel) -> Void
 
         private let service: ShowDetailsServiceProtocol
 
         init(
-            show: ShowModel,
+            show: ShowTileModel,
             service: ShowDetailsServiceProtocol = ShowDetailsService(),
             onTapEpisode: @escaping (EpisodeModel) -> Void
         ) {
@@ -99,7 +99,7 @@ extension ShowDetailsView {
         private func fetchData() {
             Task {
                 do {
-                    let data = try await service.getEpisodes(for: String(show.id))
+                    let data = try await service.getShowAndEpisodes(for: String(show.id))
                     handleSuccess(with: data)
                 } catch {
                     handleError(error: error)
@@ -107,12 +107,13 @@ extension ShowDetailsView {
             }
         }
 
-        private func handleSuccess(with data: [EpisodeModel]) {
+        private func handleSuccess(with data: ShowDetailsService.Payload) {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
-                let episodesBySeason = self.makeEpisodesBySeason(from: data)
-                self.state = .success(episodesBySeason)
+                let episodesBySeason = self.makeEpisodesBySeason(from: data.episodes)
+                let viewData: ViewData = .init(show: data.show, episodesBySeason: episodesBySeason)
+                self.state = .success(viewData)
             }
         }
 
@@ -133,12 +134,19 @@ extension ShowDetailsView {
 }
 
 extension ShowDetailsView.ViewModel {
+    struct ViewData {
+        let show: ShowModel
+        let episodesBySeason: EpisodesBySeason
+    }
+}
+
+extension ShowDetailsView.ViewModel {
     typealias EpisodesBySeason = [Int: [EpisodeModel]]
 }
 
 extension ShowDetailsView.ViewModel {
     enum State {
-        case success(EpisodesBySeason)
+        case success(ViewData)
         case loading
         case error(Error)
     }
@@ -155,22 +163,16 @@ extension ShowDetailsView {
 }
 
 struct ShowDetailsView_Previews: PreviewProvider {
-    static var debugShow: ShowModel? = {
+    static var debugShow: ShowTileModel? = {
         guard let sampleURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg") else {
             return nil
         }
 
-        return .init(id: 1,
-                     name: "Sample Show",
-                     posterImageURL: sampleURL,
-                     genres: ["Drama", "Horror"],
-                     airTime: "22:00",
-                     airDays: ["Monday", "Friday"],
-                     summary: "Sample Summary")
+        return .init(id: 1, name: "Sample Show", posterImageURL: sampleURL)
     }()
 
     static var previews: some View {
-        if let debugShow = Self.debugShow {
+        if let debugShow = debugShow {
             ShowDetailsView(
                 viewModel: .init(show: debugShow, service: MockService()) { _ in }
             )
@@ -180,36 +182,29 @@ struct ShowDetailsView_Previews: PreviewProvider {
 
 extension ShowDetailsView_Previews {
     struct MockService: ShowDetailsServiceProtocol {
-        func getEpisodes(for showId: String) async throws -> [EpisodeModel] {
-            let json =
-            """
-             {
-                "id": 1,
-                "name": "Pilot",
-                "season": 1,
-                "image": {
-                  "medium": "https://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg",
-                },
-                "summary": "First Sample Summary"
-              },
-              {
-                "id": 2,
-                "name": "The Fire",
-                "season": 1,
-                "number": 2,
-                "image": {
-                  "medium": "https://static.tvmaze.com/uploads/images/medium_landscape/1/4389.jpg",
-                },
-                "summary": "Second Sample summary"
-              }
-            ]
-            """
-
-            guard let debug = try? JSONDecoder().decode([EpisodeModel].self, from: Data(json.utf8)) else {
-                return []
+        func getShowAndEpisodes(for showId: String) async throws -> ShowDetailsService.Payload {
+            guard
+                let posterURL = URL(string: "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg")
+            else {
+                throw ShowDetailsService.ShowDetailsServiceError.invalidURL
             }
 
-            return debug
+            let debugShow: ShowModel = .init(
+                id: 0,
+                name: "Sample Show",
+                posterImageURL: posterURL,
+                genres: ["Drama", "Horror"],
+                airTime: "22h",
+                airDays: ["Monday"],
+                summary: "Sample Summary"
+            )
+
+            let debugEpisodes: [EpisodeModel] = [
+                .init(id: 0, name: "Episode #1", posterImageURL: posterURL, number: 1, season: 1, summary: "Sample"),
+                .init(id: 1, name: "Episode #2", posterImageURL: posterURL, number: 2, season: 1, summary: "Sample")
+            ]
+
+            return .init(show: debugShow, episodes: debugEpisodes)
         }
     }
 }

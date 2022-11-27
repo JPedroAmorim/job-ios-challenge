@@ -8,14 +8,14 @@
 import Foundation
 
 protocol ShowListingServiceProtocol {
-    func getShows() async throws -> [ShowModel]
+    func getShows() async throws -> [ShowTileModel]
 }
 
 class ShowListingService: ShowListingServiceProtocol {
     private var pageCount = 0
-    private var shows: [ShowModel] = []
+    private var shows: [ShowTileModel] = []
 
-    func getShows() async throws -> [ShowModel] {
+    func getShows() async throws -> [ShowTileModel] {
         let endpointSuffix = "shows?page=\(pageCount)"
 
         pageCount += 1
@@ -32,7 +32,7 @@ class ShowListingService: ShowListingServiceProtocol {
         }
 
         // Protection against corrupted data from server-side
-        guard let fetchedShows = try? JSONDecoder().decode([ShowModel].self, from: data) else {
+        guard let fetchedShows = try? JSONDecoder().decode([ShowTileModel].self, from: data) else {
             throw ShowListingServiceError.corruptedPage
         }
 
