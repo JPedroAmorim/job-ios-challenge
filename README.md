@@ -84,7 +84,7 @@ This already accounts for known issues with Apple Silicon (M1) Machines (see htt
 
 This project uses a very straightforward, simple and scalable approach of `MVVVM-C` (Model - View - ViewModel - Coordinator), using `SwiftUI` as its main UI framework.
 
-The main target of the app is `JobsityChallenge`, but there's a unit test target as well, named 'JobsityChallengeTests`.
+The main target of the app is `JobsityChallenge`, but there's a unit test target as well, named `JobsityChallengeTests`.
 
 <!-- Links -->
 
