@@ -100,15 +100,27 @@ extension ShowDetailsView {
             Task {
                 do {
                     let data = try await service.getEpisodes(for: String(show.id))
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-
-                        let episodesBySeason = self.makeEpisodesBySeason(from: data)
-                        self.state = .success(episodesBySeason)
-                    }
+                    handleSuccess(with: data)
                 } catch {
-                    state = .error(error)
+                    handleError(error: error)
                 }
+            }
+        }
+
+        private func handleSuccess(with data: [EpisodeModel]) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                let episodesBySeason = self.makeEpisodesBySeason(from: data)
+                self.state = .success(episodesBySeason)
+            }
+        }
+
+        private func handleError(error: Error) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                self.state = .error(error)
             }
         }
 

@@ -76,14 +76,26 @@ extension ShowListingView {
             Task {
                 do {
                     let data = try await service.getShows()
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-
-                        self.state = .success(data)
-                    }
+                    handleSuccess(with: data)
                 } catch {
-                    state = .error(error)
+                    handleError(error: error)
                 }
+            }
+        }
+
+        private func handleSuccess(with data: [ShowModel]) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                self.state = .success(data)
+            }
+        }
+
+        private func handleError(error: Error) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                self.state = .error(error)
             }
         }
     }
