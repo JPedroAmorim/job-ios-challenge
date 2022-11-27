@@ -14,10 +14,6 @@ struct ShowListingView: View {
         self.viewModel = viewModel
     }
 
-    var gridItems: [GridItem] {
-        Array(repeating: .init(.flexible()), count: Constants.numberOfRows)
-    }
-
     var body: some View {
         switch viewModel.state {
         case .success(let data):
@@ -33,28 +29,17 @@ struct ShowListingView: View {
     }
 
     @ViewBuilder private func renderGrid(from data: [ShowTileModel]) -> some View {
-        LazyVGrid(columns: gridItems) {
-            ForEach(data) { show in
-                renderCell(from: show)
-                    .onTapGesture {
-                        viewModel.onTapShow(show)
+        ShowGridView {
+            Group {
+                ForEach(data) { show in
+                    ShowTileView(show: show, onTap: viewModel.onTapShow)
+                }
+                // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
+                ProgressView()
+                    .onAppear {
+                        viewModel.fetchData()
                     }
             }
-            // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
-            ProgressView()
-                .onAppear {
-                    viewModel.fetchData()
-                }
-        }
-    }
-
-    @ViewBuilder private func renderCell(from show: ShowTileModel) -> some View {
-        VStack(spacing: Constants.cellSpacing) {
-            PosterImage(url: show.posterImageURL, contentMode: .fit)
-                .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
-            Text(show.name)
-                .fontWeight(.thin)
-                .lineLimit(Constants.titleLineLimit)
         }
     }
 }
@@ -123,11 +108,6 @@ extension ShowListingView.ViewModel {
 
 extension ShowListingView {
     enum Constants {
-        static let cellSpacing: CGFloat = 10
-        static let cellCornerRadius: CGFloat = 20
-        static let posterImageDimensions: CGSize = .init(width: 120, height: 120)
-        static let numberOfRows: Int = 3
-        static let titleLineLimit: Int = 1
         static let corruptedPageRequestThrottlePeriod: TimeInterval = 0.75
     }
 }

@@ -12,7 +12,10 @@ class AppCoordinator {
     // MARK: - Properties
 
     private let tabBarController = UITabBarController()
-
+    private lazy var onTapShow: (ShowTileModel) -> Void = { [weak self] show in
+        guard let self = self else { return }
+        self.navigateToShowDetails(for: show)
+    }
     // MARK: - Public API
 
     var rootViewController: UIViewController {
@@ -27,10 +30,9 @@ class AppCoordinator {
 
     func start() {
         let showListingController = setupShowListing()
-        showListingController.tabBarItem = .init(tabBarSystemItem: .featured, tag: .zero)
+        showListingController.tabBarItem = .init(tabBarSystemItem: .featured, tag: 0)
 
-        // TODO: Implement search controller
-        let searchController = UINavigationController()
+        let searchController = setupShowSearch()
         searchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
 
         tabBarController.viewControllers = [showListingController, searchController]
@@ -39,11 +41,6 @@ class AppCoordinator {
     func setupShowListing() -> UINavigationController {
         let navigationController = UINavigationController()
 
-        let onTapShow: (ShowTileModel) -> Void = { [weak self] show in
-            guard let self = self else { return }
-            self.navigateToShowDetails(for: show)
-        }
-
         let showListingViewModel: ShowListingView.ViewModel = .init(onTapShow: onTapShow)
 
         let showListingHostingController = UIHostingController(
@@ -51,6 +48,17 @@ class AppCoordinator {
         )
 
         navigationController.setViewControllers([showListingHostingController], animated: false)
+        return navigationController
+    }
+
+    func setupShowSearch() -> UINavigationController {
+        let navigationController = UINavigationController()
+
+        let showSearchViewModel: ShowSearchView.ViewModel = .init(onTapShow: onTapShow)
+
+        let showSearchHostingController = UIHostingController(rootView: ShowSearchView(viewModel: showSearchViewModel))
+
+        navigationController.setViewControllers([showSearchHostingController], animated: false)
         return navigationController
     }
 
