@@ -27,6 +27,7 @@
 		D546221E29318451006F413A /* ShowListingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546221D29318451006F413A /* ShowListingService.swift */; };
 		D5462221293186B7006F413A /* ShowListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5462220293186B7006F413A /* ShowListingView.swift */; };
 		D546222D29319DAB006F413A /* EpisodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546222C29319DAB006F413A /* EpisodeModel.swift */; };
+		D5FE3F8129330DE200CDBE6B /* ShowResponseFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		D546221D29318451006F413A /* ShowListingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListingService.swift; sourceTree = "<group>"; };
 		D5462220293186B7006F413A /* ShowListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListingView.swift; sourceTree = "<group>"; };
 		D546222C29319DAB006F413A /* EpisodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeModel.swift; sourceTree = "<group>"; };
+		D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShowResponseFixture.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			children = (
 				D546221629317C44006F413A /* ShowsResponseFixture.json */,
 				D5057B3A2931A30C00F1D8E8 /* EpisodesResponseFixture.json */,
+				D5FE3F8029330DE200CDBE6B /* ShowResponseFixture.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FE3F8129330DE200CDBE6B /* ShowResponseFixture.json in Resources */,
 				D546221729317C44006F413A /* ShowsResponseFixture.json in Resources */,
 				D5057B3B2931A30C00F1D8E8 /* EpisodesResponseFixture.json in Resources */,
 			);

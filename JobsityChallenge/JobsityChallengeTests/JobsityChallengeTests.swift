@@ -10,29 +10,32 @@ import XCTest
 
 final class JobsityChallengeTests: XCTestCase {
     func testShowModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
-        let decoder = JSONDecoder()
-        let fixtureData = getFixtureData(for: "ShowsResponseFixture")
-
-        do {
-            _ = try decoder.decode([ShowModel].self, from: fixtureData)
-        } catch {
-            XCTFail("Decoding failed with error \(String(describing: error))")
-        }
+        testDecoding(for: "ShowResponseFixture", decoding: ShowModel.self)
     }
 
     func testEpisodeModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "EpisodesResponseFixture", decoding: [EpisodeModel].self)
+    }
+
+    func testShowTileModelDecoding_whenPassedValidJSON_shouldSuccessfullyDecode() {
+        testDecoding(for: "ShowsResponseFixture", decoding: [ShowTileModel].self)
+    }
+}
+
+// MARK: - Helper Methods
+
+extension JobsityChallengeTests {
+    private func testDecoding<T: Decodable>(for fixture: String, decoding: T.Type) {
         let decoder = JSONDecoder()
-        let fixtureData = getFixtureData(for: "EpisodesResponseFixture")
+        let fixtureData = getFixtureData(for: fixture)
 
         do {
-            _ = try decoder.decode([EpisodeModel].self, from: fixtureData)
+            _ = try decoder.decode(T.self, from: fixtureData)
         } catch {
             XCTFail("Decoding failed with error \(String(describing: error))")
         }
     }
-}
 
-extension JobsityChallengeTests {
     private func getFixtureData(for filename: String) -> Data {
         guard let path = Bundle(for: type(of: self)).path(forResource: filename, ofType: "json") else {
             fatalError("\(filename).json not found in the test bundle")
