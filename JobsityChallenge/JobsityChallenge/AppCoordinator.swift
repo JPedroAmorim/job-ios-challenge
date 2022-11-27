@@ -26,17 +26,17 @@ class AppCoordinator {
     // MARK: - Methods
 
     func start() {
-        let showDetailsController = setupShowDetails()
-        showDetailsController.tabBarItem = .init(tabBarSystemItem: .featured, tag: .zero)
+        let showListingController = setupShowListing()
+        showListingController.tabBarItem = .init(tabBarSystemItem: .featured, tag: .zero)
 
         // TODO: Implement search controller
         let searchController = UINavigationController()
         searchController.tabBarItem = .init(tabBarSystemItem: .search, tag: 1)
 
-        tabBarController.viewControllers = [showDetailsController, searchController]
+        tabBarController.viewControllers = [showListingController, searchController]
     }
 
-    func setupShowDetails() -> UINavigationController {
+    func setupShowListing() -> UINavigationController {
         let navigationController = UINavigationController()
 
         let onTapShow: (ShowTileModel) -> Void = { [weak self] show in
