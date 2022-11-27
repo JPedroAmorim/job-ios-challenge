@@ -16,6 +16,12 @@ https://user-images.githubusercontent.com/38262018/204124022-baf16ae0-10f4-4e28-
 - [x] After clicking on a series, the application should show the details of the series, showing the following information: Name, Poster, Days and time during which the series air, Genres, Summary, List of episodes separated by season
 - [x] After clicking on an episode, the application should show the episode’s information, including: Name, Number, Season, Summary, Image (if there is one)
 
+### Bonus features
+
+- [x] Allow the user to save a series as a favorite.
+- [x] Allow the user to delete a series from the favorites list.
+- [x] Allow the user to browse their favorite series in alphabetical order, and click on one to see its details.
+
 ## Prerequisites (Building)
 
 In order to build this application, you'll need [🛠 Xcode 14+]
@@ -73,6 +79,8 @@ This already accounts for known issues with Apple Silicon (M1) Machines (see htt
 ## Project Architecture Overview
 
 This project uses a very straightforward, simple and scalable approach of `MVVVM-C` (Model - View - ViewModel - Coordinator), using `SwiftUI` as its main UI framework.
+
+The main target of the app is `JobsityChallenge`, but there's a unit test target as well, named 'JobsityChallengeTests`.
 
 <!-- Links -->
 
