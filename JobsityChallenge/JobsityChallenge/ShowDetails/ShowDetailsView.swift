@@ -71,7 +71,6 @@ struct ShowDetailsView: View {
             action: { viewModel.onTapEpisode(episode) },
             label: {
                 Text(episode.name)
-                    .foregroundColor(.black)
                     .withMinimumHitArea()
             })
     }
