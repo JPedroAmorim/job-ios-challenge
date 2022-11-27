@@ -19,6 +19,9 @@ struct ShowDetailsView: View {
         switch viewModel.state {
         case .success(let data):
             renderShowDetails(viewData: data)
+                .alert(item: $viewModel.favoriteAlertInfo) { info in
+                    Alert(title: Text(info.title), message: Text(info.message))
+                }
         case .loading:
             ProgressView()
         case .error:
@@ -52,6 +55,8 @@ struct ShowDetailsView: View {
                 Text("Summary: \(show.summary.stripHTML())")
             }
             .font(.subheadline)
+
+            renderFavoriteButton()
         }
         .padding(.horizontal, Constants.textHorizontalPadding)
     }
@@ -74,24 +79,64 @@ struct ShowDetailsView: View {
                     .withMinimumHitArea()
             })
     }
+
+    @ViewBuilder private func renderFavoriteButton() -> some View {
+        if viewModel.isShowFavorite {
+            Button("Remove from favorites", action: handleRemoveShowFromFavorites)
+        } else {
+            Button("Add to favorites", action: handleSaveShowToFavorites)
+        }
+    }
+
+    private func handleRemoveShowFromFavorites() {
+        DispatchQueue.main.async {
+            do {
+                try viewModel.favoritesService.removeFromFavorites(show: viewModel.show)
+                viewModel.favoriteAlertInfo = .init(title: "Success", message: "Removed show from favorites")
+            } catch {
+                viewModel.favoriteAlertInfo = .init(title: "Error", message: "Unable to remove show")
+            }
+        }
+    }
+
+    private func handleSaveShowToFavorites() {
+        DispatchQueue.main.async {
+            do {
+                try viewModel.favoritesService.saveShow(show: viewModel.show)
+                viewModel.favoriteAlertInfo = .init(title: "Success", message: "Added show to favorites")
+            } catch {
+                viewModel.favoriteAlertInfo = .init(title: "Error", message: "Unable to add show")
+            }
+        }
+    }
 }
 
 extension ShowDetailsView {
     class ViewModel: ObservableObject {
         @Published var state: State = .loading
+        @Published var favoriteAlertInfo: AlertInfo?
 
         let show: ShowTileModel
         let onTapEpisode: (EpisodeModel) -> Void
 
         private let service: ShowDetailsServiceProtocol
 
+        let favoritesService: FavoritesListingServiceProtocol
+
+        var isShowFavorite: Bool {
+            let isFavorite = try? favoritesService.isFavorite(show: show)
+            return isFavorite ?? false
+        }
+
         init(
             show: ShowTileModel,
             service: ShowDetailsServiceProtocol = ShowDetailsService(),
+            favoritesService: FavoritesListingServiceProtocol = FavoritesListingService(),
             onTapEpisode: @escaping (EpisodeModel) -> Void
         ) {
             self.show = show
             self.service = service
+            self.favoritesService = favoritesService
             self.onTapEpisode = onTapEpisode
             fetchData()
         }
@@ -142,6 +187,14 @@ extension ShowDetailsView.ViewModel {
 
 extension ShowDetailsView.ViewModel {
     typealias EpisodesBySeason = [Int: [EpisodeModel]]
+}
+
+extension ShowDetailsView.ViewModel {
+    struct AlertInfo: Identifiable {
+        let id = UUID()
+        let title: String
+        let message: String
+    }
 }
 
 extension ShowDetailsView.ViewModel {

@@ -66,7 +66,9 @@ struct ShowSearchView: View {
     @ViewBuilder private func renderBasedOnState() -> some View {
         switch viewModel.state {
         case .idle:
-            EmptyView()
+            // Done in order to catch keyboard dismissal tap gesture
+            Color.clear
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .success(let data):
             ScrollView {
                 renderGrid(from: data)
