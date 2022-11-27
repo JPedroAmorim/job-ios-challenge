@@ -33,7 +33,7 @@ class ShowListingService: ShowListingServiceProtocol {
 
         // Protection against corrupted data from server-side
         guard let fetchedShows = try? JSONDecoder().decode([ShowModel].self, from: data) else {
-            return shows
+            throw ShowListingServiceError.corruptedPage
         }
 
         shows += fetchedShows
@@ -45,5 +45,6 @@ class ShowListingService: ShowListingServiceProtocol {
 extension ShowListingService {
     enum ShowListingServiceError: Error {
         case invalidURL
+        case corruptedPage
     }
 }

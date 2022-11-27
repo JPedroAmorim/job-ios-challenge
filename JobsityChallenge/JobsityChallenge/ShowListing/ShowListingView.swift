@@ -41,7 +41,7 @@ struct ShowListingView: View {
                     }
             }
             // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
-            Color.clear
+            ProgressView()
                 .onAppear {
                     viewModel.fetchData()
                 }
@@ -92,6 +92,18 @@ extension ShowListingView {
         }
 
         private func handleError(error: Error) {
+            if case .corruptedPage = error as? ShowListingService.ShowListingServiceError {
+                // Go to next non-corrupted page after a throttling period
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + Constants.corruptedPageRequestThrottlePeriod
+                ) { [weak self] in
+                    guard let self = self else { return }
+                    self.fetchData()
+                }
+
+                return
+            }
+
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
@@ -116,6 +128,7 @@ extension ShowListingView {
         static let posterImageDimensions: CGSize = .init(width: 120, height: 120)
         static let numberOfRows: Int = 3
         static let titleLineLimit: Int = 1
+        static let corruptedPageRequestThrottlePeriod: TimeInterval = 0.75
     }
 }
 
