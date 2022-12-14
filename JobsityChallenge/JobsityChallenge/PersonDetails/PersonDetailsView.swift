@@ -32,14 +32,14 @@ struct PersonDetailsView: View {
 
     @ViewBuilder private func renderPersonSection() -> some View {
         Section {
-            VStack(alignment: .trailing, spacing: Constants.elementSpacing) {
+            VStack(spacing: Constants.elementSpacing) {
                 PosterImage(url: viewModel.person.posterImageURL)
                     .frame(width: Constants.posterImageDimensions.width, height: Constants.posterImageDimensions.height)
                     .padding(.vertical, Constants.posterImagePadding)
                 Text(viewModel.person.name)
                     .font(.title)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 
@@ -47,7 +47,7 @@ struct PersonDetailsView: View {
         Section("Shows") {
             ForEach(shows) { show in
                 TileView(model: show, onTap: viewModel.onTapShow)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }
