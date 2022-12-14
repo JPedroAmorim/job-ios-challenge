@@ -56,7 +56,7 @@ struct FavoritesListingView: View {
 
 extension FavoritesListingView {
     class ViewModel: ObservableObject {
-        @Published var state: State = .loading
+        @Published private(set) var state: State = .loading
 
         let onTapShow: (TileModel) -> Void
 

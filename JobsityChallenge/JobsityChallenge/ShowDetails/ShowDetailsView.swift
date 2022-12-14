@@ -113,7 +113,7 @@ struct ShowDetailsView: View {
 
 extension ShowDetailsView {
     class ViewModel: ObservableObject {
-        @Published var state: State = .loading
+        @Published private(set) var state: State = .loading
         @Published var favoriteAlertInfo: AlertInfo?
 
         let show: TileModel
