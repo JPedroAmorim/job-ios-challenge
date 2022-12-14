@@ -62,7 +62,7 @@ class AppCoordinator {
         ]
     }
 
-    func setupShowListing() -> UINavigationController {
+   private func setupShowListing() -> UINavigationController {
         let navigationController = UINavigationController()
 
         let showListingViewModel: ShowListingView.ViewModel = .init(onTapShow: onTapShow)
@@ -75,7 +75,7 @@ class AppCoordinator {
         return navigationController
     }
 
-    func setupSearch(
+    private func setupSearch(
         title: String,
         service: SearchServiceProtocol,
         onTapTile: @escaping (TileModel) -> Void
@@ -107,7 +107,7 @@ class AppCoordinator {
         return navigationController
     }
 
-    func navigateToShowDetails(for show: TileModel) {
+    private func navigateToShowDetails(for show: TileModel) {
         let onTapEpisode: (EpisodeModel) -> Void = { [weak self] episode in
             guard let self = self else { return }
             self.navigateToEpisodeDetails(for: episode)
@@ -122,12 +122,12 @@ class AppCoordinator {
         currentNavigationController?.pushViewController(showDetailsHostingController, animated: true)
     }
 
-    func navigateToEpisodeDetails(for episode: EpisodeModel) {
+    private func navigateToEpisodeDetails(for episode: EpisodeModel) {
         let episodeDetailsHostingController = UIHostingController(rootView: EpisodeDetailsView(episode: episode))
         currentNavigationController?.pushViewController(episodeDetailsHostingController, animated: true)
     }
 
-    func navigateToPersonDetails(for person: TileModel) {
+    private func navigateToPersonDetails(for person: TileModel) {
         let personDetailsViewModel = PersonDetailsView.ViewModel(person: person, onTapShow: onTapShow)
 
         let personDetailsHostingController = UIHostingController(
