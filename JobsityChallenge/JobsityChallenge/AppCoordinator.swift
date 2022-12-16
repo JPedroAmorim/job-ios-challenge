@@ -12,23 +12,25 @@ class AppCoordinator {
     // MARK: - Properties
 
     private let tabBarController = UITabBarController()
+
     private lazy var onTapShow: (TileModel) -> Void = { [weak self] show in
         guard let self = self else { return }
         self.navigateToShowDetails(for: show)
     }
+
     private lazy var onTapPerson: (TileModel) -> Void = { [weak self] person in
         guard let self = self else { return }
         self.navigateToPersonDetails(for: person)
+    }
+
+    private var currentNavigationController: UINavigationController? {
+        tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - Public API
 
     var rootViewController: UIViewController {
         return tabBarController
-    }
-
-    private var currentNavigationController: UINavigationController? {
-        tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - Methods
