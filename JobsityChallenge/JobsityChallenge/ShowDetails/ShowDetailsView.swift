@@ -25,7 +25,7 @@ struct ShowDetailsView: View {
         case .loading:
             ProgressView()
         case .error:
-            ErrorStateView(onRetry: { viewModel.fetchData() })
+            ErrorStateView(onRetry: viewModel.fetchData)
         }
     }
 

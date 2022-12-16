@@ -25,7 +25,7 @@ struct ShowListingView: View {
         case .loading:
             ProgressView()
         case .error:
-            ErrorStateView(onRetry: { viewModel.fetchData() })
+            ErrorStateView(onRetry: viewModel.fetchData)
         }
     }
 
@@ -37,9 +37,7 @@ struct ShowListingView: View {
                 }
                 // Fetch more shows when user reaches the end of the current data, creating an infinite scroll
                 ProgressView()
-                    .onAppear {
-                        viewModel.fetchData()
-                    }
+                    .onAppear(perform: viewModel.fetchData)
             }
         }
     }

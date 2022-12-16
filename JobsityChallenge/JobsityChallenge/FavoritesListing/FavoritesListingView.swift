@@ -17,9 +17,7 @@ struct FavoritesListingView: View {
 
     var body: some View {
         renderBasedOnState()
-            .onAppear {
-                viewModel.fetchData()
-            }
+            .onAppear(perform: viewModel.fetchData)
             .navigationTitle("Favorites")
     }
 
@@ -35,7 +33,7 @@ struct FavoritesListingView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.gray)
         case .error:
-            ErrorStateView(onRetry: { viewModel.fetchData() })
+            ErrorStateView(onRetry: viewModel.fetchData)
         }
     }
 
